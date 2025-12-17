@@ -1,10 +1,35 @@
-<body class="bg-rap-bg text-rap-text font-sans overflow-x-hidden antialiased selection:bg-rap-accent selection:text-white">
+---
+import { ViewTransitions } from 'astro:transitions';
+// IMPORTANTE: Esta línea carga los estilos y Tailwind
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Camel & DJ Juanpe - Rap Español" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | Camel & DJ Juanpe</title>
+		<ViewTransitions />
+	</head>
+	
+	<body class="bg-rap-bg text-rap-text font-sans antialiased overflow-x-hidden selection:bg-rap-accent selection:text-white">
 		
-		<main class="min-h-screen">
+		<main class="min-h-screen flex flex-col">
 			<slot />
 		</main>
 
-		<footer class="py-10 text-center text-gray-500 text-sm font-mono border-t border-rap-secondary mt-20">
+		<footer class="py-10 text-center text-gray-500 text-sm font-mono border-t border-rap-secondary mt-auto">
 			<p>&copy; {new Date().getFullYear()} CAMEL & DJ JUANPE. TODOS LOS DERECHOS RESERVADOS.</p>
 		</footer>
 	</body>
+</html>
