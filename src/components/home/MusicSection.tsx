@@ -35,10 +35,10 @@ const MusicSection: React.FC = () => {
             Reproduciendo Ahora
           </h2>
           <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-2 text-white font-display">
-            Manos a la obra de arte
+            Entre cornisas y áticos
           </h3>
           <p className="text-lg text-gray-400 font-medium mb-8">
-            Camel & DJ Juanpe • Álbum: La Fundación
+            Camel & DJ Juanpe • Álbum: Manos a la obra de arte (2025)
           </p>
 
           <div className="w-full max-w-md bg-card-dark p-6 rounded-xl shadow-lg border border-[#333]">
