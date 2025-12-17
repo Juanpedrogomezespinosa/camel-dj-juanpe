@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DiscographyGrid from '../components/discography/DiscographyGrid';
+import MusicSection from '../components/home/MusicSection'; // Reutilizamos el reproductor abajo
+---
+
+<Layout title="Discografía">
+  <div class="pt-10 pb-20">
+    <DiscographyGrid client:load />
+  </div>
+
+  <MusicSection client:visible />
+</Layout>
