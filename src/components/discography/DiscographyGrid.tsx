@@ -120,7 +120,9 @@ const DiscographyGrid: React.FC = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="group flex flex-col cursor-pointer"
-              onClick={() => handlePlayAlbum(album)}
+              onClick={() =>
+                (window.location.href = `/discografia/${album.id}`)
+              }
             >
               {/* 1. IMAGEN (USANDO IMG REAL PARA MEJOR CACHÉ) */}
               <div className="relative w-full aspect-square overflow-hidden rounded-md bg-[#1a1a1a] shadow-2xl mb-5 border border-white/5">

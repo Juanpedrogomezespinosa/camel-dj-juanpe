@@ -1,0 +1,107 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { discography } from '../../data/discography';
+import AlbumDetailPlayer from '../../components/discography/AlbumDetailPlayer';
+import MusicSection from '../../components/home/MusicSection';
+import { FaArrowLeft } from 'react-icons/fa';
+
+// 1. Generar rutas estáticas para cada disco
+export function getStaticPaths() {
+  return discography.map((album) => ({
+    params: { id: album.id },
+    props: { album },
+  }));
+}
+
+// 2. Obtener datos del disco actual
+const { album } = Astro.props;
+
+// Calcular duración total (ficticio por ahora)
+const totalSongs = album.songs.length;
+---
+
+<Layout title={`${album.title} - Camel & DJ Juanpe`}>
+  <main class="w-full max-w-[1100px] mx-auto px-6 py-12 pb-40">
+    
+    {/* Botón Volver */}
+    <a href="/discografia" class="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-white mb-8 transition-colors uppercase tracking-widest">
+      <FaArrowLeft /> Volver a Discografía
+    </a>
+
+    <div class="flex flex-col md:flex-row gap-12 mb-16">
+      {/* --- COLUMNA IZQUIERDA: PORTADA --- */}
+      <div class="w-full md:w-[400px] shrink-0">
+        <div class="aspect-square w-full rounded-xl overflow-hidden shadow-2xl shadow-black/50 relative group border border-gray-800">
+            <img 
+                src={album.cover} 
+                alt={album.title}
+                class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                style={`view-transition-name: cover-${album.id}`}
+            />
+            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+        </div>
+      </div>
+
+      {/* --- COLUMNA DERECHA: INFO Y PLAYER --- */}
+      <div class="flex flex-col justify-end gap-6 flex-1">
+        <div class="space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-card-light border border-gray-700 w-fit">
+                <span class="material-symbols-outlined text-[16px] text-accent-gold">verified</span>
+                <span class="text-xs font-bold tracking-wide text-white uppercase">Lanzamiento Oficial</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold leading-[0.9] tracking-tighter uppercase text-white">
+                {album.title}
+            </h1>
+            
+            <div class="flex items-center gap-3 text-sm font-medium text-gray-400 mt-2 uppercase tracking-wide">
+                <span class="text-white">{album.year}</span>
+                <span class="size-1 bg-accent-gold rounded-full"></span>
+                <span>{totalSongs} Canciones</span>
+                <span class="size-1 bg-accent-gold rounded-full"></span>
+                <span>{album.artist}</span>
+            </div>
+
+            <p class="text-gray-300 text-lg leading-relaxed max-w-lg font-light pt-2 border-t border-gray-800 mt-4">
+                {/* Aquí podrías añadir una descripción específica por álbum en el JSON si quisieras. Por ahora ponemos una genérica o basada en el título. */}
+                Explora los sonidos de {album.title}, una obra fundamental en la trayectoria de {album.artist}.
+            </p>
+        </div>
+
+        {/* COMPONENTE DE REPRODUCCIÓN (REACT) */}
+        <AlbumDetailPlayer client:load album={album} />
+      </div>
+    </div>
+  <MusicSection client:visible />
+
+
+    {/* --- SECCIÓN "OTROS ÁLBUMES" (Opcional, muestra 3 random) --- */}
+    <div class="mt-20 pt-10 border-t border-gray-800">
+        <h3 class="text-xl font-bold mb-8 text-white flex items-center gap-2 font-display uppercase tracking-wider">
+            <span class="text-accent-gold">●</span> Más Lanzamientos
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {discography
+                .filter(a => a.id !== album.id) // Excluir el actual
+                .slice(0, 4) // Mostrar solo 4
+                .map(otherAlbum => (
+                <a href={`/discografia/${otherAlbum.id}`} class="group cursor-pointer block">
+                    <div class="rounded-lg overflow-hidden mb-3 aspect-square relative border border-gray-800">
+                        <img 
+                            src={otherAlbum.cover} 
+                            alt={otherAlbum.title}
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                        />
+                    </div>
+                    <h4 class="font-bold text-white text-sm leading-tight group-hover:text-primary transition-colors uppercase truncate">
+                        {otherAlbum.title}
+                    </h4>
+                    <p class="text-xs text-gray-500">{otherAlbum.year}</p>
+                </a>
+            ))}
+        </div>
+    </div>
+  </main>
+
+</Layout>

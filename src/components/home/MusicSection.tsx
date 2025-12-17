@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FaPlay,
   FaPause,
@@ -9,9 +9,8 @@ import {
 } from "react-icons/fa";
 import { usePlayerStore } from "../../store/playerStore";
 
-// Imagen por defecto por si no hay nada seleccionado (Unsplash vinilo genérico)
-const DEFAULT_COVER =
-  "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=2070&auto=format&fit=crop";
+// IMPORTANTE: Importamos la imagen local
+import vinylRecord from "../../assets/images/vinyl.png";
 
 const MusicSection: React.FC = () => {
   // 1. CONECTAMOS CON EL ESTADO GLOBAL (STORE)
@@ -25,55 +24,96 @@ const MusicSection: React.FC = () => {
     volume,
   } = usePlayerStore();
 
-  // 2. REFERENCIA AL ELEMENTO DE AUDIO HTML5 (INVISIBLE)
-  const audioRef = useRef<HTMLAudioElement>(null);
+  // 2. ESTADOS LOCALES PARA LA BARRA DE PROGRESO
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
-  // 3. EFECTO: MANEJAR PLAY/PAUSE CUANDO CAMBIA EL ESTADO
+  // Referencias
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+
+  // 3. EFECTOS (Play/Pause y Volumen)
   useEffect(() => {
     if (audioRef.current) {
       if (isPlaying) {
-        const playPromise = audioRef.current.play();
-        // Manejo de errores de autoplay del navegador
-        if (playPromise !== undefined) {
-          playPromise.catch((error) => {
-            console.error("Error al reproducir:", error);
-          });
-        }
+        audioRef.current.play().catch((error) => {
+          console.error("Error al reproducir:", error);
+        });
       } else {
         audioRef.current.pause();
       }
     }
-  }, [isPlaying, currentSong]); // Se ejecuta si cambia el estado de play o la canción
+  }, [isPlaying, currentSong]);
 
-  // 4. EFECTO: CONTROLAR EL VOLUMEN
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
     }
   }, [volume]);
 
-  // VARIABLES PARA LA INTERFAZ (Si no hay canción, muestra texto por defecto)
+  // 4. HANDLERS (Manejadores de eventos de audio)
+
+  // Actualiza el tiempo mientras suena
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  // Carga la duración cuando el archivo está listo
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  // Permite hacer clic en la barra para saltar a un punto
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (progressBarRef.current && audioRef.current) {
+      const width = progressBarRef.current.clientWidth;
+      const clickX = e.nativeEvent.offsetX; // Posición del clic
+      const newTime = (clickX / width) * duration;
+
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  // 5. HELPER: Formatear tiempo (segundos -> mm:ss)
+  const formatTime = (time: number) => {
+    if (isNaN(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+
+  // VARIABLES VISUALES
+  // Si no hay portada en el álbum, usamos la imagen local importada (.src)
+  const displayCover = currentAlbum?.cover || vinylRecord.src;
   const displayTitle = currentSong?.title || "Selecciona un tema";
   const displayArtist = currentAlbum?.artist || "Camel & DJ Juanpe";
   const displayAlbum = currentAlbum?.title
     ? `• Álbum: ${currentAlbum.title}`
     : "• Discografía Oficial";
-  const displayCover = currentAlbum?.cover || DEFAULT_COVER;
+
+  // Cálculo del porcentaje de la barra
+  const progressPercent = duration ? (currentTime / duration) * 100 : 0;
 
   return (
     <section className="py-20 bg-[#0f0f0c] border-y border-card-dark overflow-hidden">
-      {/* --- MOTOR DE AUDIO (INVISIBLE) --- */}
+      {/* --- MOTOR DE AUDIO --- */}
       <audio
         ref={audioRef}
         src={currentSong?.fileUrl}
-        onEnded={nextSong} // Pasa automáticamente a la siguiente cuando acaba
+        onEnded={nextSong}
+        onTimeUpdate={handleTimeUpdate} // 👈 Evento clave
+        onLoadedMetadata={handleLoadedMetadata} // 👈 Evento clave
         preload="auto"
       />
 
       <div className="max-w-[1280px] mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
         {/* --- VINILO GIRATORIO --- */}
         <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
-          {/* Añadimos la clase 'animate-[spin_10s_linear_infinite]' SOLO si isPlaying es true */}
           <div
             className={`relative size-72 md:size-96 rounded-full overflow-hidden border-4 border-card-dark shadow-2xl transition-transform duration-1000 ${
               isPlaying ? "animate-[spin_10s_linear_infinite]" : ""
@@ -109,18 +149,38 @@ const MusicSection: React.FC = () => {
           </p>
 
           <div className="w-full max-w-md bg-card-dark p-6 rounded-xl shadow-lg border border-[#333]">
-            {/* Barra de progreso (Visual por ahora, funcional requeriría más lógica de tiempo) */}
-            <div className="w-full h-1 bg-gray-700 rounded-full mb-4 relative cursor-pointer group">
-              <div className="absolute top-0 left-0 h-full w-[0%] bg-primary rounded-full group-hover:bg-accent-gold transition-all duration-300 animate-pulse"></div>
-              <div className="absolute top-1/2 left-[0%] -translate-y-1/2 -translate-x-1/2 size-3 bg-white rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            {/* --- BARRA DE PROGRESO INTERACTIVA --- */}
+            <div
+              ref={progressBarRef}
+              onClick={handleSeek}
+              className="w-full h-1 bg-gray-700 rounded-full mb-4 relative cursor-pointer group py-2 bg-clip-content" // py-2 aumenta el área de clic
+            >
+              {/* Barra de fondo real */}
+              <div className="absolute top-1/2 -translate-y-1/2 left-0 w-full h-1 bg-gray-700 rounded-full pointer-events-none"></div>
+
+              {/* Barra de progreso coloreada */}
+              <div
+                className="absolute top-1/2 -translate-y-1/2 left-0 h-1 bg-primary rounded-full group-hover:bg-accent-gold transition-colors pointer-events-none"
+                style={{ width: `${progressPercent}%` }}
+              ></div>
+
+              {/* Bolita (Scrubber) */}
+              <div
+                className="absolute top-1/2 -translate-y-1/2 size-3 bg-white rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                style={{
+                  left: `${progressPercent}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              ></div>
             </div>
 
+            {/* TIEMPOS */}
             <div className="flex justify-between text-xs font-mono font-medium text-gray-500 mb-6">
-              <span>--:--</span>
-              <span>--:--</span>
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
             </div>
 
-            {/* Botones de Control */}
+            {/* BOTONES */}
             <div className="flex items-center justify-center gap-8">
               <button
                 onClick={prevSong}
@@ -133,7 +193,6 @@ const MusicSection: React.FC = () => {
                 onClick={togglePlay}
                 className="size-16 rounded-full bg-primary text-white flex items-center justify-center hover:scale-105 transition-transform shadow-lg shadow-primary/30 active:scale-95"
               >
-                {/* Cambia el icono según el estado */}
                 {isPlaying ? (
                   <FaPause size={24} />
                 ) : (
