@@ -1,35 +1,44 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-// IMPORTANTE: Esta línea carga los estilos y Tailwind
+import Navbar from '../components/Navbar';
 import '../styles/global.css';
 
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Camel & DJ Juanpe - Rap Español" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title} | Camel & DJ Juanpe</title>
-		<ViewTransitions />
-	</head>
-	
-	<body class="bg-rap-bg text-rap-text font-sans antialiased overflow-x-hidden selection:bg-rap-accent selection:text-white">
-		
-		<main class="min-h-screen flex flex-col">
-			<slot />
-		</main>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Camel & DJ Juanpe" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | Camel & DJ Juanpe</title>
+    <ViewTransitions />
+  </head>
+  
+  <body class="bg-background-dark text-text-main font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white flex flex-col min-h-screen">
+    
+    <Navbar client:load />
+    
+    <main class="flex-grow flex flex-col items-center w-full">
+      <slot />
+    </main>
 
-		<footer class="py-10 text-center text-gray-500 text-sm font-mono border-t border-rap-secondary mt-auto">
-			<p>&copy; {new Date().getFullYear()} CAMEL & DJ JUANPE. TODOS LOS DERECHOS RESERVADOS.</p>
-		</footer>
-	</body>
+    <footer class="w-full bg-[#050505] border-t border-card-dark py-12 mt-auto">
+        <div class="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-2">
+                <span class="text-white text-sm font-bold tracking-widest uppercase">Camel & DJ Juanpe</span>
+            </div>
+            <div class="text-[#444] text-xs uppercase tracking-wider font-mono">
+                © {new Date().getFullYear()} Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+  </body>
 </html>
