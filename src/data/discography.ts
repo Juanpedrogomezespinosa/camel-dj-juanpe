@@ -751,7 +751,7 @@ export const discography: Album[] = [
     title: "Colabos 2013 - 2015",
     year: "2016",
     artist: "Camel",
-    cover: `${BASE_URL}/08. Camel - Colabos 2013 - 2015 (2016)/diseño.png`,
+    cover: `${BASE_URL}/08. Camel - Colabos 2013 - 2015 (2016)/diseño.jpg`,
     songs: [
       {
         id: "08-01",
