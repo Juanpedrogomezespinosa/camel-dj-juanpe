@@ -1,17 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HeroSection from '../components/home/HeroSection';
+import { LatestRelease } from '../components/home/LatestRelease';
+import { TourDates } from '../components/home/TourDates';
 import ManifestoSection from '../components/home/ManifestoSection';
-import MusicSection from '../components/home/MusicSection';
 import ContactSection from '../components/home/ContactSection';
 ---
 
 <Layout title="Inicio">
+  {/* Hero: Carga inmediata porque es lo primero que se ve */}
   <HeroSection client:load />
 
+  {/* Último Lanzamiento: Carga cuando es visible para ahorrar recursos iniciales */}
+  <LatestRelease client:visible />
+
+  {/* Próximas Fechas */}
+  <TourDates client:visible />
+
+  {/* Manifiesto / Bio */}
   <ManifestoSection client:visible />
 
-  <MusicSection client:visible />
-
+  {/* Contacto / Newsletter */}
   <ContactSection client:visible />
 </Layout>
