@@ -55,7 +55,7 @@ export const LatestRelease = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <a
                 href={`/discografia/${album.id}`}
-                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-[#0b0b0b] transition-all duration-200 bg-[#f2f2f2] rounded-full hover:bg-[#8a1e1e] hover:text-[#f2f2f2] focus:outline-none"
+                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-primary rounded-full hover:bg-red-700 hover:scale-105 focus:outline-none"
               >
                 <svg
                   className="w-5 h-5 mr-2"

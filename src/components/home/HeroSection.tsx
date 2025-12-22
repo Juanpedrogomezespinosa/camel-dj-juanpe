@@ -42,7 +42,7 @@ const HeroSection: React.FC = () => {
           </a>
           <a
             href="/conciertos"
-            className="flex min-w-[140px] h-10 md:h-12 items-center justify-center rounded-full border-2 border-white bg-black/40 backdrop-blur-sm text-white text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+            className="flex min-w-[140px] h-10 md:h-12 items-center justify-center rounded-full border-2 border-white bg-black/40 backdrop-blur-sm text-white text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-black/60  transition-all"
           >
             Conciertos
           </a>
