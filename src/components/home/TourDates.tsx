@@ -39,40 +39,45 @@ const mockEvents = [
 
 export const TourDates = () => {
   return (
-    <section className="py-20 bg-[#0b0b0b] border-t border-[#2a2a2a]">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#f2f2f2] mb-4">
+    <section className="py-24 bg-[#0b0b0b] border-t border-[#2a2a2a]">
+      {/* Aumentado a max-w-6xl para permitir el grid ancho */}
+      <div className="container mx-auto px-6 max-w-6xl">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-black text-[#f2f2f2] mb-4 uppercase tracking-tight">
             Próximas Fechas
           </h2>
-          {/* Línea decorativa roja */}
-          <div className="h-1 w-20 bg-[#8a1e1e] mx-auto rounded-full"></div>
+          <div className="flex items-center justify-center gap-2">
+            <div className="h-[2px] w-12 bg-[#8a1e1e]"></div>
+            <div className="h-1.5 w-1.5 bg-[#c7a14a] rotate-45"></div>
+            <div className="h-[2px] w-12 bg-[#8a1e1e]"></div>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-4">
+        {/* CAMBIO CLAVE: Grid de 1 columna en móvil, 2 columnas en escritorio grande */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {mockEvents.map((event) => (
             <div
               key={event.id}
-              className="group relative flex flex-col md:flex-row items-center bg-[#0b0b0b] hover:bg-[#0f0f0f] border border-[#2a2a2a] hover:border-accent-gold/50 rounded-xl p-4 md:p-6 transition-all duration-300 shadow-sm hover:shadow-[#8a1e1e]/10"
+              className="group relative flex flex-col sm:flex-row items-center bg-[#0b0b0b] border border-[#2a2a2a] hover:border-[#c7a14a]/50 rounded-sm p-6 transition-all duration-300 hover:shadow-[0_0_20px_rgba(138,30,30,0.1)] hover:bg-[#0f0f0f]"
             >
               {/* Fecha */}
-              <div className="flex flex-row md:flex-col items-center justify-center min-w-[80px] gap-2 md:gap-0 mb-4 md:mb-0 md:mr-8 md:border-r md:border-[#2a2a2a] md:pr-8">
-                <span className="text-3xl md:text-4xl font-black text-[#f2f2f2]">
+              <div className="flex flex-row sm:flex-col items-center justify-center min-w-[90px] gap-3 sm:gap-0 mb-4 sm:mb-0 sm:mr-6 sm:border-r sm:border-[#2a2a2a] sm:pr-6">
+                <span className="text-4xl font-black text-[#f2f2f2] group-hover:text-[#c7a14a] transition-colors">
                   {event.day}
                 </span>
-                <span className="text-sm font-bold text-[#8a1e1e] uppercase tracking-wider">
+                <span className="text-sm font-bold text-[#8a1e1e] uppercase tracking-widest">
                   {event.month}
                 </span>
               </div>
 
               {/* Info Lugar */}
-              <div className="flex-grow text-center md:text-left mb-4 md:mb-0">
-                <h3 className="text-xl font-bold text-[#f2f2f2] mb-1">
+              <div className="flex-grow text-center sm:text-left mb-5 sm:mb-0 w-full sm:w-auto">
+                <h3 className="text-2xl font-bold text-[#f2f2f2] mb-1 uppercase tracking-wide">
                   {event.city}
                 </h3>
-                <p className="text-[#b6a0a0] font-medium flex items-center justify-center md:justify-start gap-2">
+                <p className="text-[#b6a0a0] font-medium flex items-center justify-center sm:justify-start gap-2 text-sm">
                   <svg
-                    className="w-4 h-4"
+                    className="w-4 h-4 text-[#c7a14a]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -95,17 +100,19 @@ export const TourDates = () => {
               </div>
 
               {/* Botón */}
-              <div className="min-w-[140px] flex justify-center md:justify-end">
+              <div className="w-full sm:w-auto sm:min-w-[140px] flex justify-center sm:justify-end mt-2 sm:mt-0">
                 {event.soldOut ? (
-                  <span className="px-6 py-2 text-sm font-bold text-[#b6a0a0] bg-[#2a2a2a] rounded-full border border-[#2a2a2a] cursor-not-allowed">
-                    SOLD OUT
-                  </span>
+                  <div className="w-full sm:w-auto text-center px-6 py-2 border border-[#2a2a2a] bg-[#1a1a1a] rounded-sm opacity-70 cursor-not-allowed">
+                    <span className="text-xs font-bold text-[#b6a0a0] uppercase tracking-wider block">
+                      Sold Out
+                    </span>
+                  </div>
                 ) : (
                   <a
                     href={event.link}
-                    className="px-6 py-3 text-sm font-bold text-white bg-primary rounded-full hover:bg-red-700 hover:scale-105 transition-colors duration-300 shadow-lg shadow-white/5 hover:shadow-[#c7a14a]/20"
+                    className="w-full sm:w-auto text-center px-6 py-3 text-sm font-bold text-[#c7a14a] border border-[#c7a14a] rounded-sm hover:bg-[#c7a14a] hover:text-[#0b0b0b] transition-all duration-300 uppercase tracking-wider"
                   >
-                    Comprar Entradas
+                    Entradas
                   </a>
                 )}
               </div>
@@ -113,14 +120,14 @@ export const TourDates = () => {
           ))}
         </div>
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-12">
           <p className="text-[#b6a0a0] text-sm">
             ¿Quieres contratarnos?{" "}
             <a
               href="/contacto"
-              className="text-accent-gold hover:underline font-bold"
+              className="text-[#c7a14a] border-b border-[#c7a14a] hover:text-[#f2f2f2] hover:border-[#f2f2f2] transition-colors pb-0.5 font-bold ml-1"
             >
-              Escríbenos aquí.
+              Escríbenos aquí
             </a>
           </p>
         </div>
