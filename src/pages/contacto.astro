@@ -1,0 +1,253 @@
+---
+import Layout from '../layouts/Layout.astro';
+// Usamos iconos de React Icons
+import { MdMail, MdEditNote, MdPerson, MdAlternateEmail, MdTopic, MdChat, MdSend, MdExpandMore } from "react-icons/md";
+import { FaSpotify, FaYoutube } from "react-icons/fa";
+---
+
+<Layout title="Contacto">
+  <section class="relative w-full py-20 px-6 overflow-hidden flex-grow flex items-center">
+    
+    {/* Fondos abstractos decorativos (Blur) */}
+    <div class="absolute top-1/4 -right-64 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-0 -left-64 w-[500px] h-[500px] bg-accent-gold/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <div class="w-full max-w-6xl mx-auto relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+        
+        {/* --- COLUMNA IZQUIERDA: Info y Contexto --- */}
+        <div class="lg:col-span-5 flex flex-col justify-center text-center lg:text-left">
+          <div class="mb-8 relative inline-block lg:block">
+            {/* Línea vertical decorativa (Solo en escritorio) */}
+            <div class="hidden lg:block absolute -left-6 top-2 w-1 h-12 bg-primary"></div>
+            <h2 class="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight leading-none mb-4">
+              Hablemos <br/> 
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-text-muted">
+                de Negocios
+              </span>
+            </h2>
+          </div>
+
+          <div class="space-y-6 text-text-muted font-light leading-relaxed mb-12 text-lg">
+            <p>
+              ¿Quieres contratarnos para un bolo, comprar merchandising exclusivo o tienes alguna propuesta interesante?
+            </p>
+            <p>
+              Escríbenos directamente. Sin intermediarios, como nuestra música.
+            </p>
+          </div>
+
+          <div class="space-y-8 flex flex-col items-center lg:items-start">
+            <div>
+              <h3 class="text-accent-gold font-display tracking-widest text-sm uppercase mb-2 flex items-center justify-center lg:justify-start gap-2">
+                <MdMail className="text-lg" /> Contacto Directo
+              </h3>
+              <a href="mailto:camelydjjuanpe@gmail.com" class="text-xl md:text-2xl text-white hover:text-primary transition-colors block font-medium break-all">
+                camelydjjuanpe@gmail.com
+              </a>
+            </div>
+          </div>
+
+          {/* Redes Sociales */}
+          <div class="mt-12 flex gap-4 justify-center lg:justify-start">
+            <a href="https://open.spotify.com/intl-es/artist/0gl1J9No69gvi1mYghJXFY?si=DdYuEEj3QnixFrd2FReNkA" target="_blank" rel="noreferrer" aria-label="Spotify" class="w-12 h-12 rounded-full border border-card-dark bg-[#121212] flex items-center justify-center text-text-muted hover:text-white hover:border-accent-gold transition-all group">
+              <FaSpotify className="text-xl group-hover:scale-110 transition-transform" />
+            </a>
+            <a href="https://www.youtube.com/@camelnosabakuydjjuanpe" target="_blank" rel="noreferrer" aria-label="YouTube" class="w-12 h-12 rounded-full border border-card-dark bg-[#121212] flex items-center justify-center text-text-muted hover:text-white hover:border-accent-gold transition-all group">
+              <FaYoutube className="text-xl group-hover:scale-110 transition-transform" />
+            </a>
+          </div>
+        </div>
+
+        {/* --- COLUMNA DERECHA: Formulario --- */}
+        <div class="lg:col-span-7 bg-[#171212]/50 backdrop-blur-sm p-6 md:p-10 rounded-2xl border border-card-dark relative">
+          
+          {/* Decoración de fondo del formulario */}
+          <div class="absolute top-6 right-6 opacity-10 text-card-dark pointer-events-none">
+            <MdEditNote className="text-9xl" />
+          </div>
+
+          <form id="contact-form" class="flex flex-col gap-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              {/* Nombre */}
+              <div class="flex flex-col gap-2">
+                <label for="name" class="text-xs uppercase tracking-wider text-text-muted font-display ml-1">Nombre</label>
+                <div class="relative group">
+                  <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-accent-gold transition-colors">
+                    <MdPerson className="text-xl" />
+                  </div>
+                  <input 
+                    type="text" 
+                    id="name" 
+                    name="user_name"
+                    required
+                    placeholder="Tu nombre" 
+                    class="w-full bg-card-dark border border-transparent rounded-lg h-14 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition-all duration-300"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div class="flex flex-col gap-2">
+                <label for="email" class="text-xs uppercase tracking-wider text-text-muted font-display ml-1">Email</label>
+                <div class="relative group">
+                  <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-accent-gold transition-colors">
+                    <MdAlternateEmail className="text-xl" />
+                  </div>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="user_email"
+                    required
+                    placeholder="tucorreo@ejemplo.com" 
+                    class="w-full bg-card-dark border border-transparent rounded-lg h-14 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition-all duration-300"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Asunto */}
+            <div class="flex flex-col gap-2">
+              <label for="subject" class="text-xs uppercase tracking-wider text-text-muted font-display ml-1">Asunto</label>
+              <div class="relative group">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-accent-gold transition-colors">
+                  <MdTopic className="text-xl" />
+                </div>
+                <select 
+                  id="subject" 
+                  name="subject"
+                  required
+                  class="w-full bg-card-dark border border-transparent rounded-lg h-14 pl-12 pr-10 text-white focus:outline-none focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition-all duration-300 appearance-none cursor-pointer"
+                >
+                  <option value="" disabled selected class="text-gray-500">Elige una opción</option>
+                  <option value="Contratación">Contratación</option>
+                  <option value="Merchandising">Merchandising</option>
+                  <option value="Otro Asunto">Otro Asunto</option>
+                </select>
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">
+                  <MdExpandMore className="text-2xl" />
+                </div>
+              </div>
+            </div>
+
+            {/* Mensaje */}
+            <div class="flex flex-col gap-2">
+              <label for="message" class="text-xs uppercase tracking-wider text-text-muted font-display ml-1">Mensaje</label>
+              <div class="relative group">
+                <div class="absolute left-4 top-5 text-gray-500 group-focus-within:text-accent-gold transition-colors">
+                  <MdChat className="text-xl" />
+                </div>
+                <textarea 
+                  id="message" 
+                  name="message"
+                  required
+                  placeholder="Cuéntanos..." 
+                  class="w-full bg-card-dark border border-transparent rounded-lg min-h-[160px] pl-12 pr-4 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-accent-gold focus:ring-1 focus:ring-accent-gold transition-all duration-300 resize-none"
+                ></textarea>
+              </div>
+            </div>
+
+            {/* Mensajes de Estado (Ocultos por defecto) */}
+            <div id="status-message" class="hidden rounded-lg p-4 text-sm font-medium text-center"></div>
+
+            {/* Botón Enviar */}
+            <div class="flex justify-end pt-2">
+              <button 
+                id="submit-btn"
+                type="submit" 
+                class="w-full md:w-auto justify-center group relative overflow-hidden bg-primary hover:bg-[#a32424] text-white font-display uppercase tracking-widest text-lg px-10 py-4 rounded-lg transition-all duration-300 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span id="btn-text">Enviar Mensaje</span>
+                <MdSend id="btn-icon" className="text-xl group-hover:translate-x-1 transition-transform" />
+                {/* Spinner simple para loading */}
+                <svg id="loading-spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import emailjs from '@emailjs/browser';
+
+  // --- OBTENER VARIABLES DE ENTORNO ---
+  const SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY;
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('btn-text');
+  const btnIcon = document.getElementById('btn-icon');
+  const loadingSpinner = document.getElementById('loading-spinner');
+  const statusMessage = document.getElementById('status-message');
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Verificación de seguridad
+      if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+        console.error('Faltan credenciales de EmailJS en el archivo .env');
+        if (statusMessage) {
+            statusMessage.textContent = 'Error de configuración del sistema. Faltan credenciales.';
+            statusMessage.classList.add('bg-red-900/50', 'text-red-200', 'border', 'border-red-800');
+            statusMessage.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // Estado: Enviando
+      if (submitBtn && btnText && btnIcon && loadingSpinner) {
+        submitBtn.disabled = true;
+        btnText.textContent = 'Enviando...';
+        btnIcon.classList.add('hidden');
+        loadingSpinner.classList.remove('hidden');
+      }
+
+      if (statusMessage) {
+        statusMessage.classList.add('hidden');
+        statusMessage.classList.remove('bg-green-900/50', 'text-green-200', 'bg-red-900/50', 'text-red-200');
+      }
+
+      // Envío con EmailJS
+      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form, PUBLIC_KEY)
+        .then(() => {
+          // ÉXITO
+          if (statusMessage) {
+            statusMessage.textContent = '¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.';
+            statusMessage.classList.add('bg-green-900/50', 'text-green-200', 'border', 'border-green-800');
+            statusMessage.classList.remove('hidden');
+          }
+          form.reset();
+        })
+        .catch((error) => {
+          // ERROR
+          console.error('Error al enviar el email:', error);
+          if (statusMessage) {
+            statusMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo o escríbenos directamente al correo.';
+            statusMessage.classList.add('bg-red-900/50', 'text-red-200', 'border', 'border-red-800');
+            statusMessage.classList.remove('hidden');
+          }
+        })
+        .finally(() => {
+          // Restaurar estado del botón
+          if (submitBtn && btnText && btnIcon && loadingSpinner) {
+            submitBtn.disabled = false;
+            btnText.textContent = 'Enviar Mensaje';
+            btnIcon.classList.remove('hidden');
+            loadingSpinner.classList.add('hidden');
+          }
+        });
+    });
+  }
+</script>
