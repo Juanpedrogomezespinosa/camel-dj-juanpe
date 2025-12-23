@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VideoGallery from '../components/videos/VideoGallery';
+import { MdVideoLibrary } from "react-icons/md";
+---
+
+<Layout title="Videoclips">
+  <section class="relative min-h-screen pt-24 md:pt-32">
+    
+    {/* Fondo decorativo */}
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-background-dark"></div>
+        <div class="absolute top-0 left-0 w-full h-[500px] bg-primary/5 blur-[120px]"></div>
+    </div>
+
+    <div class="relative z-10 flex flex-col items-center w-full">
+        
+        {/* Cabecera de Página */}
+        <div class="w-full max-w-[1280px] px-6 mb-12 border-b border-[#2A2A2A] pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2 mb-2">
+                    <MdVideoLibrary className="text-accent-gold text-2xl" />
+                    <span class="text-accent-gold text-xs font-bold uppercase tracking-widest">Galería Visual</span>
+                </div>
+                <h2 class="text-5xl md:text-7xl font-display font-black tracking-tighter text-white uppercase leading-none">
+                    Videoclips
+                </h2>
+                <p class="text-text-muted text-lg tracking-wide font-light max-w-xl mt-2">
+                    Narrativas visuales desde el underground. Donde la letra se encuentra con la lente.
+                </p>
+            </div>
+
+            {/* Filtros Simples (Visuales por ahora) */}
+            <div class="flex gap-4 pb-1">
+                <button class="text-white border-b border-primary px-2 py-1 text-sm font-bold uppercase tracking-wider">Todos</button>
+                <button class="text-[#666] hover:text-white px-2 py-1 text-sm font-medium uppercase tracking-wider transition-colors">Oficiales</button>
+                <button class="text-[#666] hover:text-white px-2 py-1 text-sm font-medium uppercase tracking-wider transition-colors">Directos</button>
+            </div>
+        </div>
+
+        {/* Componente Interactivo (Carga en el cliente para manejar estado) */}
+        <VideoGallery client:load />
+
+    </div>
+  </section>
+</Layout>
