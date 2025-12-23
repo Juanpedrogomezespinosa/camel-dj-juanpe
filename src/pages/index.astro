@@ -4,7 +4,7 @@ import HeroSection from '../components/home/HeroSection';
 import { LatestRelease } from '../components/home/LatestRelease';
 import { TourDates } from '../components/home/TourDates';
 import ManifestoSection from '../components/home/ManifestoSection';
-import ContactSection from '../components/home/ContactSection';
+import NewsletterSection from '../components/home/NewsletterSection';
 ---
 
 <Layout title="Inicio">
@@ -14,12 +14,13 @@ import ContactSection from '../components/home/ContactSection';
   {/* Último Lanzamiento: Carga cuando es visible para ahorrar recursos iniciales */}
   <LatestRelease client:visible />
 
-  {/* Próximas Fechas */}
-  <TourDates client:visible />
 
   {/* Manifiesto / Bio */}
   <ManifestoSection client:visible />
+  
+  {/* Próximas Fechas */}
+  <TourDates client:visible />
 
   {/* Contacto / Newsletter */}
-  <ContactSection client:visible />
+  <NewsletterSection client:visible />
 </Layout>

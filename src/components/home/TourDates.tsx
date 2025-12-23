@@ -2,36 +2,36 @@ const mockEvents = [
   {
     id: 1,
     day: "12",
-    month: "ABR",
+    month: "DIC",
     city: "Algeciras",
-    venue: "Sala Gramola",
-    soldOut: false,
+    venue: "Sala Zero",
+    soldOut: true,
     link: "#",
   },
   {
     id: 2,
-    day: "24",
-    month: "MAY",
+    day: "26",
+    month: "AGO",
     city: "Málaga",
-    venue: "La Trinchera",
-    soldOut: false,
+    venue: "Sala Marte",
+    soldOut: true,
     link: "#",
   },
   {
     id: 3,
     day: "05",
-    month: "JUN",
+    month: "ABR",
     city: "Sevilla",
     venue: "Sala X",
-    soldOut: false,
+    soldOut: true,
     link: "#",
   },
   {
     id: 4,
-    day: "18",
-    month: "JUL",
-    city: "Madrid",
-    venue: "Sala Sol",
+    day: "12",
+    month: "SEP",
+    city: "La Línea",
+    venue: "La Matrix",
     soldOut: true,
     link: "#",
   },
@@ -53,7 +53,7 @@ export const TourDates = () => {
           {mockEvents.map((event) => (
             <div
               key={event.id}
-              className="group relative flex flex-col md:flex-row items-center bg-[#0b0b0b] hover:bg-[#0f0f0f] border border-[#2a2a2a] hover:border-[#8a1e1e]/50 rounded-xl p-4 md:p-6 transition-all duration-300 shadow-sm hover:shadow-[#8a1e1e]/10"
+              className="group relative flex flex-col md:flex-row items-center bg-[#0b0b0b] hover:bg-[#0f0f0f] border border-[#2a2a2a] hover:border-accent-gold/50 rounded-xl p-4 md:p-6 transition-all duration-300 shadow-sm hover:shadow-[#8a1e1e]/10"
             >
               {/* Fecha */}
               <div className="flex flex-row md:flex-col items-center justify-center min-w-[80px] gap-2 md:gap-0 mb-4 md:mb-0 md:mr-8 md:border-r md:border-[#2a2a2a] md:pr-8">
@@ -103,7 +103,7 @@ export const TourDates = () => {
                 ) : (
                   <a
                     href={event.link}
-                    className="px-6 py-3 text-sm font-bold text-[#0b0b0b] bg-[#f2f2f2] rounded-full hover:bg-[#c7a14a] hover:text-[#0b0b0b] transition-colors duration-300 shadow-lg shadow-white/5 hover:shadow-[#c7a14a]/20"
+                    className="px-6 py-3 text-sm font-bold text-white bg-primary rounded-full hover:bg-red-700 hover:scale-105 transition-colors duration-300 shadow-lg shadow-white/5 hover:shadow-[#c7a14a]/20"
                   >
                     Comprar Entradas
                   </a>
@@ -118,7 +118,7 @@ export const TourDates = () => {
             ¿Quieres contratarnos?{" "}
             <a
               href="/contacto"
-              className="text-[#c7a14a] hover:underline font-bold"
+              className="text-accent-gold hover:underline font-bold"
             >
               Escríbenos aquí.
             </a>
