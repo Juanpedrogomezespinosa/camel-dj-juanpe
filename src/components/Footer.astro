@@ -1,0 +1,32 @@
+---
+import { FaYoutube, FaSpotify, FaInstagram } from "react-icons/fa";
+---
+
+<footer class="w-full border-t border-[#2A2A2A] bg-[#050505] py-12 relative z-20">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+        
+        {/* Copyright y Logo Texto */}
+        <div class="flex flex-col items-center md:items-start gap-2">
+            <span class="text-accent-gold text-xs font-bold uppercase tracking-widest">
+                CAMEL & DJ JUANPE
+            </span>
+            <span class="text-[#666] text-xs font-mono">
+                © {new Date().getFullYear()} Todos los derechos reservados.
+            </span>
+        </div>
+
+        {/* Redes Sociales */}
+        <div class="flex gap-6">
+            <a href="https://www.youtube.com/@camelnosabakuydjjuanpe" target="_blank" rel="noopener noreferrer" class="text-[#666] hover:text-primary transition-colors duration-300">
+                <FaYoutube size={20} />
+                <span class="sr-only">YouTube</span>
+            </a>
+            <a href="https://open.spotify.com/intl-es/artist/5Z1D3yvXw2FivG6QjV7VwH" target="_blank" rel="noopener noreferrer" class="text-[#666] hover:text-primary transition-colors duration-300">
+                <FaSpotify size={20} />
+                <span class="sr-only">Spotify</span>
+            </a>
+
+        </div>
+
+    </div>
+</footer>

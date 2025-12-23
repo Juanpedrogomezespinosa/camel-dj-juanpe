@@ -1,6 +1,8 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import Navbar from '../components/Navbar';
+// 1. Importamos el componente Footer
+import Footer from '../components/Footer.astro'; 
 import '../styles/global.css';
 
 interface Props {
@@ -29,21 +31,13 @@ const currentPath = Astro.url.pathname;
     {/* Pasamos currentPath al Navbar. Ahora Navbar.tsx ya sabe recibirlo. */}
     <Navbar client:load currentPath={currentPath} />
     
-    {/* Corregido: 'flex-grow' -> 'grow' */}
+    {/* Contenido principal que crece para empujar el footer abajo */}
     <main class="grow flex flex-col items-center w-full">
       <slot />
     </main>
 
-    <footer class="w-full bg-[#050505] border-t border-card-dark py-12 mt-auto">
-        {/* Corregido: 'max-w-[1280px]' -> 'max-w-7xl' para usar la clase canónica */}
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex items-center gap-2">
-                <span class="text-white text-sm font-bold tracking-widest uppercase">Camel & DJ Juanpe</span>
-            </div>
-            <div class="text-[#444] text-xs uppercase tracking-wider font-mono">
-                © {new Date().getFullYear()} Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
+    {/* 2. Usamos el componente Footer aquí (se queda pegado abajo gracias al flex-col min-h-screen del body) */}
+    <Footer />
+    
   </body>
 </html>

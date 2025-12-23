@@ -16,7 +16,7 @@ import { MdVideoLibrary } from "react-icons/md";
     <div class="relative z-10 flex flex-col items-center w-full">
         
         {/* Cabecera de Página */}
-        <div class="w-full max-w-[1280px] px-6 mb-12 border-b border-[#2A2A2A] pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
+        <div class="w-full max-w-7xl px-6 mb-8 border-b border-[#2A2A2A] pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
             <div class="flex flex-col gap-2">
                 <div class="flex items-center gap-2 mb-2">
                     <MdVideoLibrary className="text-accent-gold text-2xl" />
@@ -26,19 +26,12 @@ import { MdVideoLibrary } from "react-icons/md";
                     Videoclips
                 </h2>
                 <p class="text-text-muted text-lg tracking-wide font-light max-w-xl mt-2">
-                    Narrativas visuales desde el underground. Donde la letra se encuentra con la lente.
+                    Explora nuestra trayectoria visual a través de una colección de videoclips que capturan la esencia de nuestra música y estilo.
                 </p>
-            </div>
-
-            {/* Filtros Simples (Visuales por ahora) */}
-            <div class="flex gap-4 pb-1">
-                <button class="text-white border-b border-primary px-2 py-1 text-sm font-bold uppercase tracking-wider">Todos</button>
-                <button class="text-[#666] hover:text-white px-2 py-1 text-sm font-medium uppercase tracking-wider transition-colors">Oficiales</button>
-                <button class="text-[#666] hover:text-white px-2 py-1 text-sm font-medium uppercase tracking-wider transition-colors">Directos</button>
             </div>
         </div>
 
-        {/* Componente Interactivo (Carga en el cliente para manejar estado) */}
+        {/* Componente Interactivo */}
         <VideoGallery client:load />
 
     </div>
