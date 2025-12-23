@@ -125,7 +125,7 @@ export const TourDates = () => {
             ¿Quieres contratarnos?{" "}
             <a
               href="/contacto"
-              className="text-[#c7a14a] border-b border-[#c7a14a] hover:text-[#f2f2f2] hover:border-[#f2f2f2] transition-colors pb-0.5 font-bold ml-1"
+              className="text-[#c7a14a]  border-[#c7a14a] hover:border-b  transition-colors pb-0.5 font-bold ml-1"
             >
               Escríbenos aquí
             </a>
