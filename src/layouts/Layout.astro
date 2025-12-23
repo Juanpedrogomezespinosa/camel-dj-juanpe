@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
+// Obtenemos la ruta actual para pasarla al Navbar
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -24,14 +26,17 @@ const { title } = Astro.props;
   
   <body class="bg-background-dark text-text-main font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white flex flex-col min-h-screen">
     
-    <Navbar client:load />
+    {/* Pasamos currentPath al Navbar. Ahora Navbar.tsx ya sabe recibirlo. */}
+    <Navbar client:load currentPath={currentPath} />
     
-    <main class="flex-grow flex flex-col items-center w-full">
+    {/* Corregido: 'flex-grow' -> 'grow' */}
+    <main class="grow flex flex-col items-center w-full">
       <slot />
     </main>
 
     <footer class="w-full bg-[#050505] border-t border-card-dark py-12 mt-auto">
-        <div class="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+        {/* Corregido: 'max-w-[1280px]' -> 'max-w-7xl' para usar la clase canónica */}
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex items-center gap-2">
                 <span class="text-white text-sm font-bold tracking-widest uppercase">Camel & DJ Juanpe</span>
             </div>
