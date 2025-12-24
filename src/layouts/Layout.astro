@@ -1,8 +1,10 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import Navbar from '../components/Navbar';
-// 1. Importamos el componente Footer
+// 1. Importamos el Footer
 import Footer from '../components/Footer.astro'; 
+// 2. Importamos el nuevo FloatingPlayer
+import FloatingPlayer from '../components/FloatingPlayer';
 import '../styles/global.css';
 
 interface Props {
@@ -28,16 +30,22 @@ const currentPath = Astro.url.pathname;
   
   <body class="bg-background-dark text-text-main font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white flex flex-col min-h-screen">
     
-    {/* Pasamos currentPath al Navbar. Ahora Navbar.tsx ya sabe recibirlo. */}
     <Navbar client:load currentPath={currentPath} />
     
-    {/* Contenido principal que crece para empujar el footer abajo */}
+    {/* Contenido principal */}
     <main class="grow flex flex-col items-center w-full">
       <slot />
     </main>
 
-    {/* 2. Usamos el componente Footer aquí (se queda pegado abajo gracias al flex-col min-h-screen del body) */}
     <Footer />
+
+    {/* REPRODUCTOR PERSISTENTE 
+        - client:load = Carga en el cliente (necesario para React y Audio)
+        - transition:persist = NO SE DESMONTA al cambiar de página
+    */}
+    <div transition:persist>
+        <FloatingPlayer client:load />
+    </div>
     
   </body>
 </html>

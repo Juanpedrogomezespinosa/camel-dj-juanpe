@@ -7,12 +7,22 @@ interface PlayerState {
   currentAlbum: Album | null;
   volume: number;
 
+  currentTime: number;
+  duration: number;
+
   // Acciones
   playSong: (song: Song, album: Album) => void;
   togglePlay: () => void;
   setVolume: (vol: number) => void;
   nextSong: () => void;
   prevSong: () => void;
+
+  // Acciones de tiempo
+  setCurrentTime: (time: number) => void;
+  setDuration: (duration: number) => void;
+
+  // NUEVO: Acción para cerrar
+  closePlayer: () => void;
 }
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
@@ -20,9 +30,16 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   currentSong: null,
   currentAlbum: null,
   volume: 1,
+  currentTime: 0,
+  duration: 0,
 
   playSong: (song, album) => {
-    set({ currentSong: song, currentAlbum: album, isPlaying: true });
+    set({
+      currentSong: song,
+      currentAlbum: album,
+      isPlaying: true,
+      currentTime: 0,
+    });
   },
 
   togglePlay: () => {
@@ -30,6 +47,19 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
 
   setVolume: (vol) => set({ volume: vol }),
+
+  setCurrentTime: (time) => set({ currentTime: time }),
+  setDuration: (duration) => set({ duration }),
+
+  // NUEVO: Cerrar el reproductor
+  closePlayer: () => {
+    set({
+      isPlaying: false,
+      currentSong: null,
+      currentAlbum: null,
+      currentTime: 0,
+    });
+  },
 
   nextSong: () => {
     const { currentSong, currentAlbum } = get();
@@ -40,12 +70,14 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     );
     const nextIndex = currentIndex + 1;
 
-    // Si hay siguiente canción, la ponemos
     if (nextIndex < currentAlbum.songs.length) {
-      set({ currentSong: currentAlbum.songs[nextIndex], isPlaying: true });
+      set({
+        currentSong: currentAlbum.songs[nextIndex],
+        isPlaying: true,
+        currentTime: 0,
+      });
     } else {
-      // Si se acaba el disco, paramos (o podrías poner loop aquí)
-      set({ isPlaying: false });
+      set({ isPlaying: false, currentTime: 0 });
     }
   },
 
@@ -59,7 +91,13 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     const prevIndex = currentIndex - 1;
 
     if (prevIndex >= 0) {
-      set({ currentSong: currentAlbum.songs[prevIndex], isPlaying: true });
+      set({
+        currentSong: currentAlbum.songs[prevIndex],
+        isPlaying: true,
+        currentTime: 0,
+      });
+    } else {
+      set({ currentTime: 0 });
     }
   },
 }));
