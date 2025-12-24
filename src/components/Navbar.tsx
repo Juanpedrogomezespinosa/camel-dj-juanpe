@@ -7,7 +7,7 @@ const links = [
   { name: "Inicio", href: "/" },
   { name: "Discografía", href: "/discografia" },
   { name: "Videoclips", href: "/videoclips" },
-  { name: "Conciertos", href: "/conciertos" },
+  { name: "Biografía", href: "/biografia" },
   { name: "Contacto", href: "/contacto" },
 ];
 

@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FaInstagram, FaSpotify, FaYoutube } from "react-icons/fa";
+
+// CORRECCIÓN 1: Ajuste de rutas (../ en lugar de ../../ si estás en src/pages/)
+import perfilGrupo from "../assets/images/perfil-grupo.jpg";
+import perfilJuanpe from "../assets/images/perfil-juanpe.jpg";
+import perfilCamel from "../assets/images/perfil-camel.jpg";
+---
+
+<Layout title="Biografía - Camel & DJ Juanpe">
+  
+  <style>
+    .grain-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.04;
+        background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+        filter: contrast(150%) brightness(100%);
+    }
+  </style>
+
+  <div class="grain-overlay"></div>
+
+  {/* --- HERO / INTRODUCCIÓN --- */}
+  <section class="relative pt-32 pb-12 px-6 lg:px-12 border-b border-[#2A2A2A]">
+    <div class="max-w-7xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 text-primary font-bold tracking-widest uppercase text-sm mb-4 animate-fade-in">
+            <span class="w-8 h-[2px] bg-primary"></span>
+            Biografía 
+            <span class="w-8 h-[2px] bg-primary"></span>
+        </div>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter uppercase text-white mb-2">
+            CAMEL <span class="text-[#333]">&</span> DJ JUANPE
+        </h1>
+        <p class="text-[#666] uppercase tracking-widest text-sm font-bold">Desde 2013 • Campo de Gibraltar</p>
+    </div>
+  </section>
+
+  {/* ==========================================
+      1. BIOGRAFÍA CONJUNTA (EL DÚO)
+     ========================================== */}
+  <section class="py-20 px-6 lg:px-12 bg-[#0B0B0B]">
+    <div class="max-w-7xl mx-auto">
+        
+        {/* IMAGEN DEL DÚO */}
+        <div class="relative w-full aspect-video md:aspect-[21/9] overflow-hidden rounded-sm mb-16 bg-[#1a1a1a] border border-[#2A2A2A] group">
+            {/* CORRECCIÓN 2: Usar llaves sin comillas y añadir .src */}
+            <img 
+                src={perfilGrupo.src} 
+                alt="Camel y DJ Juanpe juntos" 
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10">
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white uppercase mb-2">Trayectoria Conjunta</h2>
+                <div class="h-1 w-20 bg-accent-gold"></div>
+            </div>
+        </div>
+
+        {/* TEXTO CONJUNTO */}
+        <div class="max-w-4xl mx-auto text-[#b6a0a0] text-lg font-light leading-relaxed space-y-8 text-justify">
+            
+            <p class="first-letter:text-4xl first-letter:font-bold first-letter:text-primary first-letter:mr-1">
+                En 2013 comenzó una nueva fase formandose el dúo <strong>Camel & DJ Juanpe</strong>, una alianza creativa que marcaría el núcleo de su carrera profesional.
+            </p>
+
+            <div class="pl-6 border-l-2 border-[#333]">
+                <p>
+                    Su primer álbum profesional, <strong>Rakuda</strong>, se grabó en 2014 bajo la supervisión técnica de Jorge Gascón y se publicó en 2016. Este trabajo contó con producciones de figuras reconocidas como DJ Juanpe, Baghira, Nms Producciones, Lex Luthorz, 112 Producciones, 5comentarios, entre otros. También participaron vocalmente artistas como Ruinah Klan, Flameh, Kako M, ElBezea y Dikeh.
+                </p>
+            </div>
+
+            <p>
+                En 2022, tras varios años de evolución, lanzaron su segundo álbum profesional: <strong>Quimeras & Utopías</strong>, completamente producido por DJ Juanpe. El disco incluyó colaboraciones de Toba, Pino y ElBezea, y fue precedido por Comediantes de la legua, un maxi que vio la luz en 2021 con aportaciones vocales de Isaac y Belén Alarcón. Ambos trabajos fueron grabados en MB Sound y Area90.
+            </p>
+
+            <p class="text-white">
+                En 2025, celebrando sus 20 años de carrera, Camel No Sabaku y DJ Juanpe lanzaron su trabajo más reciente y posiblemente más maduro: <strong>Manos a la Obra de Arte</strong>, nuevamente con colaboraciones vocales de Soriano, Area90, Kattman y Blanka Bernal. Grabado en Area90, en casa de Juanpe y Down House Records y nuevamente con Jorge Gascón encargado del sonido.
+            </p>
+        </div>
+
+    </div>
+  </section>
+
+  {/* SEPARADOR */}
+  <div class="w-full h-px bg-[#2A2A2A]"></div>
+
+  {/* ==========================================
+      2. BIOGRAFÍA INDIVIDUAL: CAMEL
+     ========================================== */}
+  <section class="py-24 px-6 lg:px-12 bg-[#080808]">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 items-center">
+        
+        {/* IMAGEN CAMEL (Izquierda) */}
+        <div class="order-1 lg:order-1 relative">
+            <div class="aspect-[4/5] bg-[#1a1a1a] border border-[#2A2A2A] p-2 relative">
+                <div class="absolute top-0 right-0 p-4 z-10">
+                    <span class="text-6xl text-white/5 font-display font-black">MC</span>
+                </div>
+                {/* CORRECCIÓN 2: Usar llaves sin comillas y añadir .src */}
+                <img 
+                    src={perfilCamel.src} 
+                    alt="Camel No Sabaku" 
+                    class="w-full h-full object-cover grayscale opacity-90"
+                />
+            </div>
+        </div>
+
+        {/* TEXTO CAMEL (Derecha) */}
+        <div class="order-2 lg:order-2 flex flex-col gap-6">
+            <h3 class="text-4xl font-display font-bold text-white uppercase">Camel No Sabaku</h3>
+            <div class="w-12 h-1 bg-primary mb-2"></div>
+
+            <div class="text-[#b6a0a0] leading-relaxed space-y-6 text-lg font-light">
+                <p>
+                    Camel No Sabaku es un artista de rap originario del Campo de Gibraltar, cuya trayectoria musical comenzó en 2005.
+                </p>
+                <p>
+                    En 2010 se unió al colectivo <strong>Ruinah Klan</strong>, con quienes lanzó tres trabajos fundamentales para su primera etapa:
+                </p>
+                <ul class="list-none space-y-2 border-l border-[#333] pl-4 text-sm font-mono text-[#888]">
+                    <li>— Catástrofe Enfermiza (2011)</li>
+                    <li>— Blasfemia (2012)</li>
+                    <li>— A Cabezazos (2014)</li>
+                </ul>
+                <p>
+                    Para cerrar esta etapa conceptual, Camel en 2024 publicó el EP <strong>Fobias & Filias</strong>, una obra íntima y reflexiva producida íntegramente por Baghira, con instrumentales colaborativas con Acción Sanchez, Hueco y Dr Neo Córtex.
+                </p>
+            </div>
+        </div>
+
+    </div>
+  </section>
+
+  {/* SEPARADOR */}
+  <div class="w-full h-px bg-[#2A2A2A]"></div>
+
+  {/* ==========================================
+      3. BIOGRAFÍA INDIVIDUAL: DJ JUANPE
+     ========================================== */}
+  <section class="py-24 px-6 lg:px-12 bg-[#0B0B0B]">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 items-center">
+        
+        {/* TEXTO JUANPE (Izquierda en escritorio) */}
+        <div class="order-2 lg:order-1 flex flex-col gap-6 lg:text-right lg:items-end">
+            <h3 class="text-4xl font-display font-bold text-white uppercase">DJ Juanpe</h3>
+            <div class="w-12 h-1 bg-accent-gold mb-2"></div>
+
+            <div class="text-[#b6a0a0] leading-relaxed space-y-6 text-lg font-light">
+                <p>
+                    DJ Juanpe es un DJ y productor originario del Campo de Gibraltar. Su vínculo con la música comenzó desde la infancia, influenciado directamente por su padre y su padrino, siendo este último quien lo introdujo en el mundo del rap.
+                </p>
+                <p>
+                    En el periodo entre 2009 y 2010 inició su camino hacia la profesionalización como productor musical, desarrollando su estilo y técnica en distintos proyectos. A lo largo de esos años, actuó como DJ ocasional para diversas agrupaciones del panorama local, hasta que se consolidó como miembro fijo del grupo <strong>Ruinah Klan</strong>, siendo pieza clave para la creación del álbum "A Cabezazos" del colectivo algecireño.
+                </p>
+                <p>
+                    DJ Juanpe ha colaborado a lo largo de su trayectoria en numerosos proyectos musicales dentro de la escena del rap, tanto como productor como DJ, consolidando una amplia y diversa experiencia en el género.
+                </p>
+            </div>
+        </div>
+
+        {/* IMAGEN JUANPE (Derecha en escritorio) */}
+        <div class="order-1 lg:order-2 relative">
+            <div class="aspect-[4/5] bg-[#1a1a1a] border border-[#2A2A2A] p-2 relative">
+                <div class="absolute top-0 left-0 p-4 z-10">
+                    <span class="text-6xl text-white/5 font-display font-black">DJ</span>
+                </div>
+                {/* CORRECCIÓN 2: Usar llaves sin comillas y añadir .src */}
+                <img 
+                    src={perfilJuanpe.src} 
+                    alt="DJ Juanpe" 
+                    class="w-full h-full object-cover grayscale opacity-90"
+                />
+            </div>
+        </div>
+
+    </div>
+  </section>
+
+
+</Layout>
