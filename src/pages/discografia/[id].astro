@@ -5,6 +5,8 @@ import AlbumDetailPlayer from '../../components/discography/AlbumDetailPlayer';
 import MusicSection from '../../components/home/MusicSection';
 import { FaArrowLeft } from 'react-icons/fa';
 
+export const prerender = true;
+
 // 1. Generar rutas estáticas para cada disco
 export function getStaticPaths() {
   return discography.map((album) => ({
