@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-// Importamos FaTimes para el botón de cerrar
 import {
   FaPlay,
   FaPause,
@@ -22,13 +21,14 @@ const FloatingPlayer: React.FC = () => {
     setCurrentTime,
     setDuration,
     currentTime,
-    closePlayer, // Importamos la acción de cerrar
+    duration, // IMPORTANTE: Recuperamos la duración del store
+    closePlayer,
   } = usePlayerStore();
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
 
-  // 1. PLAY/PAUSE
+  // --- EFECTOS ---
   useEffect(() => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -41,14 +41,13 @@ const FloatingPlayer: React.FC = () => {
     }
   }, [isPlaying, currentSong]);
 
-  // 2. VOLUMEN
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
     }
   }, [volume]);
 
-  // 3. ACTUALIZAR TIEMPO
+  // --- HANDLERS ---
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime);
@@ -61,7 +60,6 @@ const FloatingPlayer: React.FC = () => {
     }
   };
 
-  // 4. BARRA DE PROGRESO
   const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
     if (progressBarRef.current && audioRef.current) {
       const width = progressBarRef.current.clientWidth;
@@ -74,17 +72,22 @@ const FloatingPlayer: React.FC = () => {
     }
   };
 
-  // Si no hay canción, no mostramos nada
+  // --- FORMATO DE TIEMPO (mm:ss) ---
+  const formatTime = (time: number) => {
+    if (isNaN(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+
+  // Si no hay canción, no renderizamos
   if (!currentSong) return null;
 
-  const progressPercent = audioRef.current?.duration
-    ? (currentTime / audioRef.current.duration) * 100
-    : 0;
+  const progressPercent = duration ? (currentTime / duration) * 100 : 0;
 
   return (
-    // CAMBIO: Fondo sólido bg-[#0f0f0c] y borde superior sutil
     <div className="fixed bottom-0 left-0 w-full z-50 bg-[#0f0f0c] border-t border-white/10 shadow-2xl transition-transform duration-500 transform translate-y-0">
-      {/* BARRA DE PROGRESO */}
+      {/* BARRA DE PROGRESO SUPERIOR */}
       <div
         className="w-full h-1 bg-gray-800 cursor-pointer group"
         onClick={handleSeek}
@@ -100,9 +103,8 @@ const FloatingPlayer: React.FC = () => {
 
       {/* CONTENIDO PRINCIPAL */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* IZQUIERDA: INFO (Flex-1 para equilibrar el espacio) */}
+        {/* IZQUIERDA: INFO (Cover + Títulos) */}
         <div className="flex items-center gap-4 flex-1 overflow-hidden">
-          {/* CAMBIO: rounded-full para hacerlo redondo y animación spin */}
           <div
             className={`relative size-12 shrink-0 rounded-full overflow-hidden border border-white/10 bg-black shadow-lg ${
               isPlaying ? "animate-[spin_4s_linear_infinite]" : ""
@@ -113,7 +115,6 @@ const FloatingPlayer: React.FC = () => {
               alt="Cover"
               className="w-full h-full object-cover opacity-80"
             />
-            {/* Agujero del vinilo */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="size-2 bg-[#0f0f0c] rounded-full border border-gray-700" />
             </div>
@@ -129,18 +130,18 @@ const FloatingPlayer: React.FC = () => {
           </div>
         </div>
 
-        {/* CENTRO: CONTROLES (Tamaño fijo, centrado absoluto visualmente gracias a los flex-1 de los lados) */}
+        {/* CENTRO: CONTROLES */}
         <div className="flex items-center justify-center gap-6 text-white w-auto">
           <button
             onClick={prevSong}
-            className="text-gray-400 hover:text-white transition-colors p-2"
+            className="text-gray-400 hover:text-white transition-colors p-2 hover:scale-110 active:scale-95"
           >
             <FaStepBackward size={18} />
           </button>
 
           <button
             onClick={togglePlay}
-            className="size-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-white/10"
+            className="size-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-white/10 active:scale-95"
           >
             {isPlaying ? (
               <FaPause size={14} />
@@ -151,18 +152,27 @@ const FloatingPlayer: React.FC = () => {
 
           <button
             onClick={nextSong}
-            className="text-gray-400 hover:text-white transition-colors p-2"
+            className="text-gray-400 hover:text-white transition-colors p-2 hover:scale-110 active:scale-95"
           >
             <FaStepForward size={18} />
           </button>
         </div>
 
-        {/* DERECHA: EXTRAS / CERRAR (Flex-1 para equilibrar con la izquierda) */}
-        <div className="flex items-center justify-end gap-4 flex-1">
-          {/* BOTÓN CERRAR */}
+        {/* DERECHA: TIEMPO + CERRAR */}
+        <div className="flex items-center justify-end gap-6 flex-1">
+          {/* NUEVO: Contador de tiempo */}
+          <div className="flex flex-col items-end sm:flex-row sm:items-center sm:gap-1 text-xs font-mono font-medium text-gray-400">
+            <span className="text-white">{formatTime(currentTime)}</span>
+            <span className="hidden sm:inline">/</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+
+          <div className="h-6 w-px bg-white/10 mx-2 hidden sm:block"></div>
+
+          {/* Botón Cerrar */}
           <button
             onClick={closePlayer}
-            className="text-gray-500 hover:text-red-500 transition-colors p-2"
+            className="text-gray-500 hover:text-red-500 transition-colors p-2 hover:rotate-90 duration-300"
             title="Cerrar reproductor"
           >
             <FaTimes size={18} />
