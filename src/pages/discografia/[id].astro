@@ -18,6 +18,13 @@ const { album } = Astro.props;
 
 // Calcular duración total (ficticio por ahora)
 const totalSongs = album.songs.length;
+
+// 3. Lógica para obtener álbumes aleatorios (excluyendo el actual)
+// Esto se ejecuta en tiempo de construcción (build time) para generar páginas estáticas
+const randomAlbums = discography
+  .filter((a) => a.id !== album.id) // Excluimos el álbum que estamos viendo
+  .sort(() => 0.5 - Math.random())  // Mezclamos el array aleatoriamente
+  .slice(0, 4);                     // Nos quedamos con los primeros 4 resultados de la mezcla
 ---
 
 <Layout title={`${album.title} - Camel & DJ Juanpe`}>
@@ -62,7 +69,6 @@ const totalSongs = album.songs.length;
             </div>
 
             <p class="text-gray-300 text-lg leading-relaxed max-w-lg font-light pt-2 border-t border-gray-800 mt-4">
-                {/* Aquí podrías añadir una descripción específica por álbum en el JSON si quisieras. Por ahora ponemos una genérica o basada en el título. */}
                 Explora los sonidos de {album.title}, una obra fundamental en la trayectoria de {album.artist}.
             </p>
         </div>
@@ -71,19 +77,19 @@ const totalSongs = album.songs.length;
         <AlbumDetailPlayer client:load album={album} />
       </div>
     </div>
-  <MusicSection client:visible />
+    
+    {/* Componente visual del vinilo (opcional en esta página si ya hay un player global) */}
+    <MusicSection client:visible />
 
-
-    {/* --- SECCIÓN "OTROS ÁLBUMES" (Opcional, muestra 3 random) --- */}
+    {/* --- SECCIÓN "OTROS ÁLBUMES" (Aleatorios) --- */}
     <div class="mt-20 pt-10 border-t border-gray-800">
         <h3 class="text-xl font-bold mb-8 text-white flex items-center gap-2 font-display uppercase tracking-wider">
             <span class="text-accent-gold">●</span> Más Lanzamientos
         </h3>
+        
+        {/* Aquí iteramos sobre la lista 'randomAlbums' que calculamos arriba */}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {discography
-                .filter(a => a.id !== album.id) // Excluir el actual
-                .slice(0, 4) // Mostrar solo 4
-                .map(otherAlbum => (
+            {randomAlbums.map((otherAlbum) => (
                 <a href={`/discografia/${otherAlbum.id}`} class="group cursor-pointer block">
                     <div class="rounded-lg overflow-hidden mb-3 aspect-square relative border border-gray-800">
                         <img 
@@ -102,5 +108,4 @@ const totalSongs = album.songs.length;
         </div>
     </div>
   </main>
-
 </Layout>
