@@ -1,30 +1,52 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import Navbar from '../components/Navbar';
-// 1. Importamos el Footer
 import Footer from '../components/Footer.astro'; 
-// 2. Importamos el nuevo FloatingPlayer
 import FloatingPlayer from '../components/FloatingPlayer';
 import '../styles/global.css';
 
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
 }
 
-const { title } = Astro.props;
-// Obtenemos la ruta actual para pasarla al Navbar
+const { 
+  title, 
+  description = "Web oficial de Camel & DJ Juanpe. Discografía, videoclips, noticias y música urbana desde el corazón.", // Tu descripción por defecto
+  image = "/og-image.jpeg" 
+} = Astro.props;
+
 const currentPath = Astro.url.pathname;
+
+const siteUrl = Astro.url.origin;
+const imageURL = image.startsWith('http') ? image : `${siteUrl}${image}`;
+const pageTitle = `${title} | Camel & DJ Juanpe`;
 ---
 
 <!doctype html>
 <html lang="es" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Camel & DJ Juanpe" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title} | Camel & DJ Juanpe</title>
+    
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageURL} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={imageURL} />
+
     <ViewTransitions />
   </head>
   
@@ -39,10 +61,7 @@ const currentPath = Astro.url.pathname;
 
     <Footer />
 
-    {/* REPRODUCTOR PERSISTENTE 
-        - client:load = Carga en el cliente (necesario para React y Audio)
-        - transition:persist = NO SE DESMONTA al cambiar de página
-    */}
+    {/* REPRODUCTOR PERSISTENTE */}
     <div transition:persist>
         <FloatingPlayer client:load />
     </div>
