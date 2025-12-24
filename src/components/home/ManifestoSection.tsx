@@ -1,24 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
-// Usamos iconos que representen: Ubicación, El DJ/Vinilo, y La Escritura
 import { FaMapMarkerAlt, FaCompactDisc, FaPenNib } from "react-icons/fa";
 
 const ManifestoSection: React.FC = () => {
   const cards = [
     {
       icon: <FaMapMarkerAlt className="text-2xl text-white" />,
-      title: "DENOMINACIÓN DE ORIGEN",
-      text: "Somos de San Roque, Campo de Gibraltar. Rap del sur con identidad propia. Lejos de modas pasajeras. Aquí se hace música por respeto, no por likes.",
+      title: "DESDE EL SUR",
+      text: "San Roque en el mapa. Lejos de los focos de la capital, creamos nuestra propia escena. Rap con salitre, identidad de barrio y códigos que no se compran ni se venden.",
     },
     {
       icon: <FaCompactDisc className="text-2xl text-white" />,
-      title: "SONIDO ESTRICTO",
-      text: "Juanpe en los aparatos. Boom Bap clásico, samplers con grano y scratches de verdad. Nada de pre-grabados: técnica, estructura y el sonido sucio de los 2000.",
+      title: "DIGGING & SCRATCH",
+      text: "Juanpe al control. Respeto absoluto por el formato físico. Ritmos con grano, baterías sucias y técnica clásica. Aquí no se tocan botones, se acarician surcos.",
     },
     {
       icon: <FaPenNib className="text-2xl text-white" />,
-      title: "LÍRICA Y VERDAD",
-      text: "Camel al micro. Introspección y crítica social. Escribimos lo que vivimos y lo que vemos. Sin relleno, solo barras que pesan y mensajes que quedan.",
+      title: "BARRA A BARRA",
+      text: "Camel en la escritura. Sin filtros ni autotune. Historias reales que pesan. No escribimos para los números, escribimos para que no se nos olvide quiénes somos.",
     },
   ];
 
@@ -27,13 +26,13 @@ const ManifestoSection: React.FC = () => {
       <div className="max-w-[1080px] mx-auto">
         <div className="text-center mb-16">
           <span className="text-accent-gold font-bold tracking-widest uppercase text-sm mb-2 block">
-            Pura Esencia
+            Filosofía & Actitud
           </span>
           <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-6 text-white font-display">
-            NUESTRO CÓDIGO
+            ESTRICTO UNDERGROUND
           </h2>
 
-          {/* LÍNEA DECORATIVA ACTUALIZADA (Estilo TourDates) */}
+          {/* LÍNEA DECORATIVA (Diseño original) */}
           <div className="flex items-center justify-center gap-2">
             <div className="h-[2px] w-12 bg-primary"></div>
             <div className="h-1.5 w-1.5 bg-[#c7a14a] rotate-45"></div>
