@@ -12,6 +12,7 @@ export interface Album {
   artist: string;
   cover: string;
   songs: Song[];
+  downloadUrl?: string;
 }
 
 const BASE_URL = import.meta.env.PUBLIC_MUSIC_BASE_URL;
@@ -23,6 +24,7 @@ export const discography: Album[] = [
     year: "2025",
     artist: "Camel No Sabaku & DJ Juanpe",
     cover: `${BASE_URL}/19. Camel No Sabaku & DJ Juanpe - Manos a la Obra de Arte (2025)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/19-Camel-No-Sabaku-DJ-Juanpe-Manos-a-la-Obra-de-Arte-2025.rar`,
     songs: [
       {
         id: "19-01",
@@ -122,6 +124,7 @@ export const discography: Album[] = [
     year: "2021-2025",
     artist: "Camel & DJ Juanpe",
     cover: `${BASE_URL}/18. Colaboraciones e Ineditos Vol.4 (2021 - 2025)/diseño.png`,
+    downloadUrl: `${BASE_URL}/descargas/18-Colaboraciones-e-Ineditos-Vol-4-2021-2025.rar`,
     songs: [
       {
         id: "18-01",
@@ -188,13 +191,13 @@ export const discography: Album[] = [
         id: "18-11",
         title: "Frases de Resaca (Boujack Horseman)",
         duration: "2:26",
-        fileUrl: `${BASE_URL}/18. Colaboraciones e Ineditos Vol.4 (2021 - 2025)/11. Camel & DJ Juanpe - Frases de Resaca (Boujack Horseman).wav`,
+        fileUrl: `${BASE_URL}/18. Colaboraciones e Ineditos Vol.4 (2021 - 2025)/11. Camel & DJ Juanpe - Frases de Resaca (Boujack Horseman).mp3`,
       },
       {
         id: "18-12",
-        title: "Randon Bullshit Go (Con Camel)",
+        title: "Random Bullshit Go (Con Camel)",
         duration: "3:22",
-        fileUrl: `${BASE_URL}/18. Colaboraciones e Ineditos Vol.4 (2021 - 2025)/12. GachetOldSchool - Randon Bullshit Go (Con Camel).wav`,
+        fileUrl: `${BASE_URL}/18. Colaboraciones e Ineditos Vol.4 (2021 - 2025)/12. GachetOldSchool - Randon Bullshit Go (Con Camel).mp3`,
       },
       {
         id: "18-13",
@@ -242,7 +245,7 @@ export const discography: Album[] = [
         id: "18-20",
         title: "Backing Tha Beat (Con Pata, Camel No Sabaku y Drako)",
         duration: "3:10",
-        fileUrl: `${BASE_URL}/18. Colaboraciones e Ineditos Vol.4 (2021 - 2025)/20. GachetOldSchool - Backing Tha Beat (Con Pata, Camel No Sabaku y Drako).wav`,
+        fileUrl: `${BASE_URL}/18. Colaboraciones e Ineditos Vol.4 (2021 - 2025)/20. GachetOldSchool - Backing Tha Beat (Con Pata, Camel No Sabaku y Drako).mp3`,
       },
     ],
   },
@@ -252,6 +255,7 @@ export const discography: Album[] = [
     year: "2020",
     artist: "Camel & DJ Juanpe",
     cover: `${BASE_URL}/17. Camel & DJ Juanpe - Godhito Zezy como Biggie (Mixtape 2020)/diseño.png`,
+    downloadUrl: `${BASE_URL}/descargas/17-Camel-DJ-Juanpe-Godhito-Zezy-como-Biggie-Mixtape-2020.rar`,
     songs: [
       {
         id: "17-01",
@@ -321,30 +325,31 @@ export const discography: Album[] = [
     year: "2024",
     artist: "Camel & Toba",
     cover: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/diseño.jpeg`,
+    downloadUrl: `${BASE_URL}/descargas/16-Camel-Toba-Acuestate-y-Suda-Vol-1-2024.rar`,
     songs: [
       {
         id: "16-01",
         title: "Venom",
         duration: "3:14",
-        fileUrl: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/01. Camel & Toba - Venom [Prod. Nigma y Raias Beats].wav`,
+        fileUrl: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/01. Camel & Toba - Venom [Prod. Nigma y Raias Beats].mp3`,
       },
       {
         id: "16-02",
         title: "Yo Odio a James Yong",
         duration: "3:30",
-        fileUrl: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/02. Camel & Toba - Yo Odio a James Yong [Prod. DJ Juanpe].wav`,
+        fileUrl: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/02. Camel & Toba - Yo Odio a James Yong [Prod. DJ Juanpe].mp3`,
       },
       {
         id: "16-03",
         title: "Pintando las Paredes (Remix GachetOldSchool)",
         duration: "3:20",
-        fileUrl: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/03. Camel & Toba - Pintando las Paredes (Remix GachetOldSchool).wav`,
+        fileUrl: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/03. Camel & Toba - Pintando las Paredes (Remix GachetOldSchool).mp3`,
       },
       {
         id: "16-04",
         title: "Es lo que Hay (Con Buben King)",
         duration: "3:05",
-        fileUrl: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/04. Camel & Toba - Es lo que Hay (Con Buben King) [Prod. DJ Juanpe].wav`,
+        fileUrl: `${BASE_URL}/16. Camel & Toba - Acuestate y Suda Vol.1 (2024)/04. Camel & Toba - Es lo que Hay (Con Buben King) [Prod. DJ Juanpe].mp3`,
       },
     ],
   },
@@ -354,30 +359,31 @@ export const discography: Album[] = [
     year: "2023-2024",
     artist: "BubenKing, Camel y PabloSinAka",
     cover: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/15-Area90Studio-BubenKing-Camel-y-PabloSinAka-2023-2024.rar`,
     songs: [
       {
         id: "15-01",
         title: "Papela",
         duration: "2:50",
-        fileUrl: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/01. Papela.wav`,
+        fileUrl: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/01. Papela.mp3`,
       },
       {
         id: "15-02",
         title: "OG",
         duration: "3:16",
-        fileUrl: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/02. OG.wav`,
+        fileUrl: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/02. OG.mp3`,
       },
       {
         id: "15-03",
         title: "Main",
         duration: "2:36",
-        fileUrl: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/03. Main.wav`,
+        fileUrl: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/03. Main.mp3`,
       },
       {
         id: "15-04",
         title: "Enemys",
         duration: "3:51",
-        fileUrl: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/04. Enemys.wav`,
+        fileUrl: `${BASE_URL}/15. Area90Studio (BubenKing, Camel y PabloSinAka) (2023-2024)/04. Enemys.mp3`,
       },
       {
         id: "15-05",
@@ -423,30 +429,31 @@ export const discography: Album[] = [
     year: "2023",
     artist: "Camel",
     cover: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/14-Camel-Fobias-Filias-2023.rar`,
     songs: [
       {
         id: "14-01",
         title: "Gustos Obsesivos",
         duration: "2:48",
-        fileUrl: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/01. Gustos Obsesivos [Prod. Baghira & Acción Sanchez].wav`,
+        fileUrl: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/01. Gustos Obsesivos [Prod. Baghira & Acción Sanchez].mp3`,
       },
       {
         id: "14-02",
         title: "Triste y Aburrido",
         duration: "3:56",
-        fileUrl: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/02. Triste y Aburrido [Prod. Baghira & Dr Neo Cortex].wav`,
+        fileUrl: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/02. Triste y Aburrido [Prod. Baghira & Dr Neo Cortex].mp3`,
       },
       {
         id: "14-03",
         title: "Donde Estoy",
         duration: "3:15",
-        fileUrl: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/03. Donde Estoy [Prod. Baghira & Hueco].wav`,
+        fileUrl: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/03. Donde Estoy [Prod. Baghira & Hueco].mp3`,
       },
       {
         id: "14-04",
         title: "Coronel Cadalso",
         duration: "3:19",
-        fileUrl: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/04. Coronel Cadalso [Prod. Baghira & Dr Neo Cortex].wav`,
+        fileUrl: `${BASE_URL}/14. Camel - Fobias & Filias (2023)/04. Coronel Cadalso [Prod. Baghira & Dr Neo Cortex].mp3`,
       },
     ],
   },
@@ -456,6 +463,7 @@ export const discography: Album[] = [
     year: "2022",
     artist: "Camel & DJ Juanpe",
     cover: `${BASE_URL}/13. Camel & DJ Juanpe - Quimeras & Utopias (2022)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/13-Camel-DJ-Juanpe-Quimeras-Utopias-2022.rar`,
     songs: [
       {
         id: "13-01",
@@ -537,6 +545,7 @@ export const discography: Album[] = [
     year: "2021",
     artist: "Camel & DJ Juanpe",
     cover: `${BASE_URL}/12. Camel & DJ Juanpe - Comediantes de la Legua (2021)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/12-Camel-DJ-Juanpe-Comediantes-de-la-Legua-2021.rar`,
     songs: [
       {
         id: "12-01",
@@ -564,24 +573,25 @@ export const discography: Album[] = [
     year: "2021",
     artist: "Camel & Fran Collado",
     cover: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/diseño.png`,
+    downloadUrl: `${BASE_URL}/descargas/11-Camel-Fran-Collado-Cuerdas-Vocales-2021.rar`,
     songs: [
       {
         id: "11-01",
         title: "Hey!",
         duration: "2:11",
-        fileUrl: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/01. Camel & Fran Collado - Hey!.wav`,
+        fileUrl: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/01. Camel & Fran Collado - Hey!.mp3`,
       },
       {
         id: "11-02",
         title: "En Obras",
         duration: "4:53",
-        fileUrl: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/02. Camel & Fran Collado - En Obras.wav`,
+        fileUrl: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/02. Camel & Fran Collado - En Obras.mp3`,
       },
       {
         id: "11-03",
         title: "Toque de Atención",
         duration: "3:04",
-        fileUrl: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/03. Camel & Fran Collado - Toque de Atención.wav`,
+        fileUrl: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/03. Camel & Fran Collado - Toque de Atención.mp3`,
       },
       {
         id: "11-04",
@@ -593,7 +603,7 @@ export const discography: Album[] = [
         id: "11-05",
         title: "Libre",
         duration: "2:07",
-        fileUrl: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/05. Camel & Fran Collado - Libre.wav`,
+        fileUrl: `${BASE_URL}/11. Camel & Fran Collado - Cuerdas Vocales (2021)/05. Camel & Fran Collado - Libre.mp3`,
       },
       {
         id: "11-06",
@@ -609,6 +619,7 @@ export const discography: Album[] = [
     year: "2021",
     artist: "Camel",
     cover: `${BASE_URL}/10. Camel - Colabos 2016 - 2020 (2021)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/10-Camel-Colabos-2016-2020-2021.rar`,
     songs: [
       {
         id: "10-01",
@@ -704,7 +715,7 @@ export const discography: Album[] = [
         id: "10-17",
         title: "Cama",
         duration: "3:20",
-        fileUrl: `${BASE_URL}/10. Camel - Colabos 2016 - 2020 (2021)/17. Camel - Cama.wav`,
+        fileUrl: `${BASE_URL}/10. Camel - Colabos 2016 - 2020 (2021)/17. Camel - Cama.mp3`,
       },
       {
         id: "10-18",
@@ -732,6 +743,7 @@ export const discography: Album[] = [
     year: "2017",
     artist: "Camel & DJ Juanpe",
     cover: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/09-Camel-Dj-Juanpe-Grafolog-aObligada-2017.rar`,
     songs: [
       {
         id: "09-01",
@@ -743,19 +755,19 @@ export const discography: Album[] = [
         id: "09-02",
         title: "Escarnio",
         duration: "3:13",
-        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/02. Camel & DJ Juanpe - Escarnio.wav`,
+        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/02. Camel & DJ Juanpe - Escarnio.mp3`,
       },
       {
         id: "09-03",
         title: "Respect And Peace (con Khare)",
         duration: "4:50",
-        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/03. Camel & DJ Juanpe - Respect And Peace (con Khare).wav`,
+        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/03. Camel & DJ Juanpe - Respect And Peace (con Khare).mp3`,
       },
       {
         id: "09-04",
         title: "Saludo Eskizo",
         duration: "2:50",
-        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/04. Camel & DJ Juanpe - Saludo Eskizo.wav`,
+        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/04. Camel & DJ Juanpe - Saludo Eskizo.mp3`,
       },
       {
         id: "09-05",
@@ -773,31 +785,31 @@ export const discography: Album[] = [
         id: "09-07",
         title: "Mi precio",
         duration: "4:02",
-        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/07. Camel & DJ Juanpe - Mi precio.wav`,
+        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/07. Camel & DJ Juanpe - Mi precio.mp3`,
       },
       {
         id: "09-08",
         title: "Vitafobia",
         duration: "3:33",
-        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/08. Camel & DJ Juanpe - Vitafobia.wav`,
+        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/08. Camel & DJ Juanpe - Vitafobia.mp3`,
       },
       {
         id: "09-09",
         title: "Cuánto antes (Con Tarifa Ganja Crew)",
         duration: "4:02",
-        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/09. Camel & DJ Juanpe - Cuánto antes (Con Tarifa Ganja Crew).wav`,
+        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/09. Camel & DJ Juanpe - Cuánto antes (Con Tarifa Ganja Crew).mp3`,
       },
       {
         id: "09-10",
         title: "Rodolfo Beckenbauer",
         duration: "2:13",
-        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/10. Camel & DJ Juanpe - Rodolfo Beckenbauer.wav`,
+        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/10. Camel & DJ Juanpe - Rodolfo Beckenbauer.mp3`,
       },
       {
         id: "09-11",
         title: "En blanco (con Makro)",
         duration: "3:51",
-        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/11. Camel & DJ Juanpe - En blanco (con Makro).wav`,
+        fileUrl: `${BASE_URL}/09. Camel & Dj Juanpe - %23GrafologíaObligada (2017)/11. Camel & DJ Juanpe - En blanco (con Makro).mp3`,
       },
       {
         id: "09-12",
@@ -819,6 +831,7 @@ export const discography: Album[] = [
     year: "2016",
     artist: "Camel",
     cover: `${BASE_URL}/08. Camel - Colabos 2013 - 2015 (2016)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/08-Camel-Colabos-2013-2015-2016.rar`,
     songs: [
       {
         id: "08-01",
@@ -960,6 +973,7 @@ export const discography: Album[] = [
     year: "2016",
     artist: "Camel",
     cover: `${BASE_URL}/07. Camel - Rakuda (2016)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/07-Camel-Rakuda-2016.rar`,
     songs: [
       {
         id: "07-01",
@@ -1031,7 +1045,7 @@ export const discography: Album[] = [
         id: "07-12",
         title: "Días son Anuncios",
         duration: "3:47",
-        fileUrl: `${BASE_URL}/07. Camel - Rakuda (2016)/12 Di¦üas son Anuncios.mp3`,
+        fileUrl: `${BASE_URL}/07. Camel - Rakuda (2016)/12 Días son Anuncios.mp3`,
       },
       {
         id: "07-13",
@@ -1049,13 +1063,13 @@ export const discography: Album[] = [
         id: "07-15",
         title: "Suena Estándar (Con Flameh)",
         duration: "3:50",
-        fileUrl: `${BASE_URL}/07. Camel - Rakuda (2016)/15 Suena Esta¦ündar (Con Flameh).mp3`,
+        fileUrl: `${BASE_URL}/07. Camel - Rakuda (2016)/15 Suena Estándar (Con Flameh).mp3`,
       },
       {
         id: "07-16",
         title: "No Seré",
         duration: "3:35",
-        fileUrl: `${BASE_URL}/07. Camel - Rakuda (2016)/16 No Sere¦ü.mp3`,
+        fileUrl: `${BASE_URL}/07. Camel - Rakuda (2016)/16 No Seré.mp3`,
       },
       {
         id: "07-17",
@@ -1077,6 +1091,7 @@ export const discography: Album[] = [
     year: "2014",
     artist: "Ruinah Klan",
     cover: `${BASE_URL}/06. Ruinah Klan - A Cabezazos (2014)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/06-Ruinah-Klan-A-Cabezazos-2014.rar`,
     songs: [
       {
         id: "06-01",
@@ -1176,6 +1191,7 @@ export const discography: Album[] = [
     year: "2013",
     artist: "Camel",
     cover: `${BASE_URL}/05. Camel - Colabos 2009 - 2012 (2013)/diseño.png`,
+    downloadUrl: `${BASE_URL}/descargas/05-Camel-Colabos-2009-2012-2013.rar`,
     songs: [
       {
         id: "05-01",
@@ -1191,7 +1207,7 @@ export const discography: Album[] = [
       },
       {
         id: "05-03",
-        title: "El Ser estraño (Con M Krodo)",
+        title: "El Ser Extraño (Con M Krodo)",
         duration: "2:48",
         fileUrl: `${BASE_URL}/05. Camel - Colabos 2009 - 2012 (2013)/03.El Ser estraño (Con M Krodo) [Inedito].mp3`,
       },
@@ -1323,6 +1339,7 @@ export const discography: Album[] = [
     year: "2012",
     artist: "Camel & Buben King (Ruinah Klan)",
     cover: `${BASE_URL}/04. Camel & Buben King (Ruinah Klan) - Expontaneo (2012)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/04-Camel-Buben-King-Ruinah-Klan-Expontaneo-2012.rar`,
     songs: [
       {
         id: "04-01",
@@ -1380,6 +1397,7 @@ export const discography: Album[] = [
     year: "2012",
     artist: "Ruinah Klan",
     cover: `${BASE_URL}/03. Ruinah Klan - Blasfemia (2012)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/03-Ruinah-Klan-Blasfemia-2012.rar`,
     songs: [
       {
         id: "03-01",
@@ -1455,6 +1473,7 @@ export const discography: Album[] = [
     year: "2011",
     artist: "Camel",
     cover: `${BASE_URL}/02. Camel - La Gran Diferencia (2011)/diseño.png`,
+    downloadUrl: `${BASE_URL}/descargas/02-Camel-La-Gran-Diferencia-2011.rar`,
     songs: [
       {
         id: "02-01",
@@ -1554,6 +1573,7 @@ export const discography: Album[] = [
     year: "2011",
     artist: "Ruinah Klan",
     cover: `${BASE_URL}/01.Ruinah Klan - Catástrofe Enfermiza (2011)/diseño.jpg`,
+    downloadUrl: `${BASE_URL}/descargas/01-Ruinah-Klan-Cat-strofe-Enfermiza-2011.rar`,
     songs: [
       {
         id: "01-01",

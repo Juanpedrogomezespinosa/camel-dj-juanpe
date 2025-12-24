@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import {
   FaPlay,
   FaPause,
@@ -8,7 +7,7 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import { usePlayerStore } from "../../store/playerStore";
-import type { Album, Song } from "../../data/discography";
+import type { Album } from "../../data/discography";
 
 interface Props {
   album: Album;
@@ -17,25 +16,26 @@ interface Props {
 const AlbumDetailPlayer: React.FC<Props> = ({ album }) => {
   const { playSong, currentSong, isPlaying, togglePlay } = usePlayerStore();
 
-  // Función para descargar (simulada o real si el link es directo)
-  const handleDownload = () => {
-    // Aquí podrías abrir el link de Cloudflare en nueva pestaña
-    window.open(album.cover, "_blank");
-  };
-
   return (
     <div className="flex flex-col gap-8">
       {/* CABECERA DE ACCIONES */}
       <div className="flex flex-wrap gap-4 pt-2">
-        <button
-          onClick={() => alert("Función de descarga próximamente")}
-          className="flex items-center justify-center gap-3 px-8 h-12 rounded-full bg-primary text-white font-bold text-sm tracking-wide hover:bg-red-700 transition-colors shadow-lg shadow-primary/20"
-        >
-          <FaDownload /> DESCARGAR ÁLBUM
-        </button>
+        {/* BOTÓN DESCARGAR ÁLBUM (Solo aparece si en el futuro subes un ZIP y pones el link) */}
+        {album.downloadUrl && (
+          <a
+            href={album.downloadUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 px-8 h-12 rounded-full bg-primary text-white font-bold text-sm tracking-wide hover:bg-red-700 transition-colors shadow-lg shadow-primary/20 cursor-pointer"
+          >
+            <FaDownload /> DESCARGAR ÁLBUM
+          </a>
+        )}
 
         <button
-          onClick={() => playSong(album.songs[0], album)}
+          onClick={() => {
+            if (album.songs.length > 0) playSong(album.songs[0], album);
+          }}
           className="flex items-center justify-center gap-3 px-8 h-12 rounded-full bg-card-light text-white font-bold text-sm tracking-wide hover:bg-white hover:text-black transition-colors shadow-sm"
         >
           <FaPlay /> ESCUCHAR AHORA
@@ -53,11 +53,13 @@ const AlbumDetailPlayer: React.FC<Props> = ({ album }) => {
 
       {/* LISTA DE CANCIONES */}
       <div className="flex flex-col gap-1 mt-8">
-        {/* Encabezado Tabla */}
         <div className="border-b border-gray-800 pb-4 mb-2 flex items-center justify-between text-xs font-bold text-accent-gold uppercase tracking-wider px-4">
           <div className="w-12">#</div>
           <div className="flex-1">Título</div>
-          <div className="w-24 text-right">Duración</div>
+          <div className="flex items-center gap-6">
+            <div className="w-8 text-center">DL</div> {/* Columna Descarga */}
+            <div className="w-16 text-right">Duración</div>
+          </div>
         </div>
 
         {/* Canciones */}
@@ -67,6 +69,7 @@ const AlbumDetailPlayer: React.FC<Props> = ({ album }) => {
           return (
             <div
               key={song.id}
+              // Al hacer clic en la fila, reproduce
               onClick={() => {
                 if (isActive) togglePlay();
                 else playSong(song, album);
@@ -78,7 +81,7 @@ const AlbumDetailPlayer: React.FC<Props> = ({ album }) => {
               }`}
             >
               <div className="flex items-center flex-1 gap-4 overflow-hidden">
-                {/* Número o Icono Play/Pause */}
+                {/* Icono Play/Pause/Numero */}
                 <div className="w-8 text-center">
                   {isActive && isPlaying ? (
                     <FaPause className="text-primary animate-pulse mx-auto" />
@@ -102,14 +105,29 @@ const AlbumDetailPlayer: React.FC<Props> = ({ album }) => {
                   >
                     {song.title}
                   </span>
-                  {/* Si tuviéramos artista por canción, iría aquí. Usamos el del álbum por defecto */}
-                  {/* <span className="text-gray-500 text-xs font-medium">{album.artist}</span> */}
                 </div>
               </div>
 
-              {/* Duración (Placeholder si no la tenemos en JSON) */}
-              <div className="w-24 text-right text-sm font-medium text-gray-400">
-                {song.duration || "--:--"}
+              {/* Lado Derecho: Descarga y Duración */}
+              <div className="flex items-center gap-6">
+                {/* BOTÓN DE DESCARGA INDIVIDUAL */}
+                <div className="w-8 flex justify-center">
+                  <a
+                    href={song.fileUrl}
+                    download // Intenta forzar la descarga
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()} // ¡IMPORTANTE! Evita que se reproduzca al clicar descargar
+                    className="text-gray-500 hover:text-accent-gold transition-colors opacity-0 group-hover:opacity-100 p-2"
+                    title="Descargar Canción"
+                  >
+                    <FaDownload />
+                  </a>
+                </div>
+
+                <div className="w-16 text-right text-sm font-medium text-gray-400">
+                  {song.duration || "--:--"}
+                </div>
               </div>
             </div>
           );
