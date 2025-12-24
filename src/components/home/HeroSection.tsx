@@ -41,10 +41,10 @@ const HeroSection: React.FC = () => {
             Discografía
           </a>
           <a
-            href="/conciertos"
+            href="/videoclips"
             className="flex min-w-[140px] h-10 md:h-12 items-center justify-center rounded-full border-2 border-white bg-black/40 backdrop-blur-sm text-white text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-black/60  transition-all"
           >
-            Conciertos
+            videoclips
           </a>
         </motion.div>
       </div>
