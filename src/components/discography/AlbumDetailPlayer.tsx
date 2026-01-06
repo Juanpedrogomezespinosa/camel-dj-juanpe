@@ -40,15 +40,6 @@ const AlbumDetailPlayer: React.FC<Props> = ({ album }) => {
         >
           <FaPlay /> ESCUCHAR AHORA
         </button>
-
-        <div className="flex gap-2">
-          <button className="flex items-center justify-center size-12 rounded-full border border-gray-700 bg-transparent text-white hover:bg-card-light transition-colors">
-            <FaHeart />
-          </button>
-          <button className="flex items-center justify-center size-12 rounded-full border border-gray-700 bg-transparent text-white hover:bg-card-light transition-colors">
-            <FaShareAlt />
-          </button>
-        </div>
       </div>
 
       {/* LISTA DE CANCIONES */}
