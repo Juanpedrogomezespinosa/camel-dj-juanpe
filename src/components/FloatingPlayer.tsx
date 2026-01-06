@@ -21,14 +21,16 @@ const FloatingPlayer: React.FC = () => {
     setCurrentTime,
     setDuration,
     currentTime,
-    duration, // IMPORTANTE: Recuperamos la duración del store
+    duration,
     closePlayer,
   } = usePlayerStore();
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
+  // Referencia al contenedor principal del reproductor para moverlo
+  const playerContainerRef = useRef<HTMLDivElement>(null);
 
-  // --- EFECTOS ---
+  // --- EFECTO: CONTROL DE AUDIO ---
   useEffect(() => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -46,6 +48,47 @@ const FloatingPlayer: React.FC = () => {
       audioRef.current.volume = volume;
     }
   }, [volume]);
+
+  // --- EFECTO: COLISIÓN CON EL FOOTER ---
+  useEffect(() => {
+    const handleScroll = () => {
+      const footer = document.getElementById("site-footer");
+      const player = playerContainerRef.current;
+
+      if (!footer || !player) return;
+
+      const footerRect = footer.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Si la parte superior del footer está visible en la ventana
+      if (footerRect.top < windowHeight) {
+        // Calculamos cuántos píxeles del footer se ven
+        const overlap = windowHeight - footerRect.top;
+
+        // Movemos el player hacia arriba esa cantidad
+        // Usamos 'style' directamente para rendimiento (evita re-renders de React)
+        player.style.transform = `translateY(-${overlap}px)`;
+        // Importante: quitamos transición para que el movimiento sea instantáneo y "pegado" al footer
+        player.style.transition = "none";
+      } else {
+        // Si el footer no se ve, volvemos a la posición original
+        player.style.transform = `translateY(0)`;
+        // Restauramos la transición suave por si aparece/desaparece por otras razones
+        player.style.transition = "transform 0.5s ease";
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll); // También recalcular al cambiar tamaño de ventana
+
+    // Ejecutar una vez al inicio por si cargamos la página ya abajo
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [currentSong]); // Se reinicia si cambia la canción (por si el player se desmonta/monta)
 
   // --- HANDLERS ---
   const handleTimeUpdate = () => {
@@ -80,13 +123,15 @@ const FloatingPlayer: React.FC = () => {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  // Si no hay canción, no renderizamos
   if (!currentSong) return null;
 
   const progressPercent = duration ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="fixed bottom-0 left-0 w-full z-50 bg-[#0f0f0c] border-t border-white/10 shadow-2xl transition-transform duration-500 transform translate-y-0">
+    <div
+      ref={playerContainerRef}
+      className="fixed bottom-0 left-0 w-full z-50 bg-[#0f0f0c] border-t border-white/10 shadow-2xl transition-transform duration-500 transform translate-y-0"
+    >
       {/* BARRA DE PROGRESO SUPERIOR */}
       <div
         className="w-full h-1 bg-gray-800 cursor-pointer group"
@@ -160,7 +205,6 @@ const FloatingPlayer: React.FC = () => {
 
         {/* DERECHA: TIEMPO + CERRAR */}
         <div className="flex items-center justify-end gap-6 flex-1">
-          {/* NUEVO: Contador de tiempo */}
           <div className="flex flex-col items-end sm:flex-row sm:items-center sm:gap-1 text-xs font-mono font-medium text-gray-400">
             <span className="text-white">{formatTime(currentTime)}</span>
             <span className="hidden sm:inline">/</span>
@@ -169,7 +213,6 @@ const FloatingPlayer: React.FC = () => {
 
           <div className="h-6 w-px bg-white/10 mx-2 hidden sm:block"></div>
 
-          {/* Botón Cerrar */}
           <button
             onClick={closePlayer}
             className="text-gray-500 hover:text-red-500 transition-colors p-2 hover:rotate-90 duration-300"
@@ -180,7 +223,6 @@ const FloatingPlayer: React.FC = () => {
         </div>
       </div>
 
-      {/* MOTOR DE AUDIO */}
       <audio
         ref={audioRef}
         src={currentSong.fileUrl}

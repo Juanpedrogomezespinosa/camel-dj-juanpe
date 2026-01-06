@@ -2,7 +2,7 @@
 import { FaYoutube, FaSpotify, FaInstagram } from "react-icons/fa";
 ---
 
-<footer class="w-full border-t border-[#2A2A2A] bg-[#050505] py-12 relative z-20">
+<footer id="site-footer" class="w-full border-t border-[#2A2A2A] bg-[#050505] py-12 relative z-20">
     <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
         
         {/* Copyright y Logo Texto */}
@@ -25,7 +25,12 @@ import { FaYoutube, FaSpotify, FaInstagram } from "react-icons/fa";
                 <FaSpotify size={20} />
                 <span class="sr-only">Spotify</span>
             </a>
-
+            {/* Si quieres añadir Instagram más tarde, descomenta esto:
+            <a href="#" target="_blank" rel="noopener noreferrer" class="text-[#666] hover:text-primary transition-colors duration-300">
+                <FaInstagram size={20} />
+                <span class="sr-only">Instagram</span>
+            </a>
+            */}
         </div>
 
     </div>
