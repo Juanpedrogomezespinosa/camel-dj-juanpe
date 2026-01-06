@@ -715,7 +715,7 @@ export const discography: Album[] = [
         id: "10-17",
         title: "Cama",
         duration: "3:20",
-        fileUrl: `${BASE_URL}/10. Camel - Colabos 2016 - 2020 (2021)/17. Camel - Cama.mp3`,
+        fileUrl: `${BASE_URL}/10. Camel - Colabos 2016 - 2020 (2021)/17. Camel - Cama.wav`,
       },
       {
         id: "10-18",
@@ -873,7 +873,7 @@ export const discography: Album[] = [
         id: "08-07",
         title: "Algo se cuece",
         duration: "1:22",
-        fileUrl: `${BASE_URL}/08. Camel - Colabos 2013 - 2015 (2016)/07. Camel - Algo se cuece [#AlgoSeCuece].mp3`,
+        fileUrl: `${BASE_URL}/08. Camel - Colabos 2013 - 2015 (2016)/07. Camel - Algo se cuece %5B%23AlgoSeCuece%5D.mp3`,
       },
       {
         id: "08-08",
