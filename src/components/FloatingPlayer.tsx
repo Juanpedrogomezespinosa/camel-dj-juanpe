@@ -27,7 +27,6 @@ const FloatingPlayer: React.FC = () => {
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
-  // Referencia al contenedor principal del reproductor para moverlo
   const playerContainerRef = useRef<HTMLDivElement>(null);
 
   // --- EFECTO: CONTROL DE AUDIO ---
@@ -60,37 +59,46 @@ const FloatingPlayer: React.FC = () => {
       const footerRect = footer.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Si la parte superior del footer está visible en la ventana
       if (footerRect.top < windowHeight) {
-        // Calculamos cuántos píxeles del footer se ven
         const overlap = windowHeight - footerRect.top;
-
-        // Movemos el player hacia arriba esa cantidad
-        // Usamos 'style' directamente para rendimiento (evita re-renders de React)
         player.style.transform = `translateY(-${overlap}px)`;
-        // Importante: quitamos transición para que el movimiento sea instantáneo y "pegado" al footer
         player.style.transition = "none";
       } else {
-        // Si el footer no se ve, volvemos a la posición original
         player.style.transform = `translateY(0)`;
-        // Restauramos la transición suave por si aparece/desaparece por otras razones
         player.style.transition = "transform 0.5s ease";
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleScroll); // También recalcular al cambiar tamaño de ventana
+    window.addEventListener("resize", handleScroll);
 
-    // Ejecutar una vez al inicio por si cargamos la página ya abajo
     handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, [currentSong]); // Se reinicia si cambia la canción (por si el player se desmonta/monta)
+  }, [currentSong]);
 
   // --- HANDLERS ---
+
+  // NUEVO: Lógica inteligente para el botón "Anterior"
+  const handlePrev = () => {
+    if (audioRef.current) {
+      // Si la canción lleva más de 2 segundos, volvemos al principio (0)
+      if (audioRef.current.currentTime > 2) {
+        audioRef.current.currentTime = 0;
+        setCurrentTime(0); // Actualizamos el estado visual inmediatamente
+      } else {
+        // Si lleva menos de 2 segundos, cambiamos a la canción anterior
+        prevSong();
+      }
+    } else {
+      // Fallback por si la referencia no existe
+      prevSong();
+    }
+  };
+
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime);
@@ -115,7 +123,6 @@ const FloatingPlayer: React.FC = () => {
     }
   };
 
-  // --- FORMATO DE TIEMPO (mm:ss) ---
   const formatTime = (time: number) => {
     if (isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
@@ -132,9 +139,9 @@ const FloatingPlayer: React.FC = () => {
       ref={playerContainerRef}
       className="fixed bottom-0 left-0 w-full z-50 bg-[#0f0f0c] border-t border-white/10 shadow-2xl transition-transform duration-500 transform translate-y-0"
     >
-      {/* BARRA DE PROGRESO SUPERIOR */}
+      {/* BARRA DE PROGRESO */}
       <div
-        className="w-full h-1 bg-gray-800 cursor-pointer group"
+        className="w-full h-2 hover:h-4 bg-gray-800 cursor-pointer group transition-all duration-200 ease-out"
         onClick={handleSeek}
         ref={progressBarRef}
       >
@@ -142,13 +149,13 @@ const FloatingPlayer: React.FC = () => {
           className="h-full bg-primary group-hover:bg-accent-gold transition-colors relative"
           style={{ width: `${progressPercent}%` }}
         >
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 size-3 bg-white rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 size-4 bg-white rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
       </div>
 
       {/* CONTENIDO PRINCIPAL */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* IZQUIERDA: INFO (Cover + Títulos) */}
+        {/* IZQUIERDA: INFO */}
         <div className="flex items-center gap-4 flex-1 overflow-hidden">
           <div
             className={`relative size-12 shrink-0 rounded-full overflow-hidden border border-white/10 bg-black shadow-lg ${
@@ -178,8 +185,9 @@ const FloatingPlayer: React.FC = () => {
         {/* CENTRO: CONTROLES */}
         <div className="flex items-center justify-center gap-6 text-white w-auto">
           <button
-            onClick={prevSong}
+            onClick={handlePrev}
             className="text-gray-400 hover:text-white transition-colors p-2 hover:scale-110 active:scale-95"
+            title="Anterior (o reiniciar si > 2s)"
           >
             <FaStepBackward size={18} />
           </button>
